@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 export default function IdentityInput() {
   const [username, setUsername] = useState("");
@@ -30,12 +30,21 @@ export default function IdentityInput() {
 
   if (isStored) {
     return (
-      <button
-        onClick={handleClear}
-        class="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-      >
-        Clear Stored Identity
-      </button>
+      <>
+        <p class="flex items-center">
+          <span class="text-gray-500">@</span>
+          <span>{localStorage.getItem("username")}</span>
+          <span class="text-gray-500">@</span>
+          <span>{localStorage.getItem("domain")}</span>
+        </p>
+
+        <button
+          onClick={handleClear}
+          class="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Clear Stored Identity
+        </button>
+      </>
     );
   }
 
@@ -47,15 +56,15 @@ export default function IdentityInput() {
         value={username}
         onInput={(e) => setUsername((e.target as HTMLInputElement).value)}
         placeholder="username"
-        class="px-2 py-1 border rounded w-24"
+        class="px-2 py-1 border rounded w-28"
       />
       <span class="text-gray-500">@</span>
       <input
         type="text"
         value={domain}
         onInput={(e) => setDomain((e.target as HTMLInputElement).value)}
-        placeholder="masto.byrd.ws"
-        class="px-2 py-1 border rounded w-32"
+        placeholder="mastodon.social"
+        class="px-2 py-1 border rounded w-42"
       />
       <button
         type="submit"
