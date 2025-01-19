@@ -12,6 +12,7 @@ import * as $instance_domain_ from "./routes/instance/[domain].tsx";
 import * as $unfollower from "./routes/unfollower.tsx";
 import * as $Countdown from "./islands/Countdown.tsx";
 import * as $Counter from "./islands/Counter.tsx";
+import * as $IdentityInput from "./islands/IdentityInput.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -28,6 +29,7 @@ const manifest = {
   islands: {
     "./islands/Countdown.tsx": $Countdown,
     "./islands/Counter.tsx": $Counter,
+    "./islands/IdentityInput.tsx": $IdentityInput,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
