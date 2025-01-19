@@ -9,6 +9,7 @@ import * as $countdown from "./routes/countdown.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $instance_domain_ from "./routes/instance/[domain].tsx";
+import * as $unfollower from "./routes/unfollower.tsx";
 import * as $Countdown from "./islands/Countdown.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -22,6 +23,7 @@ const manifest = {
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
     "./routes/instance/[domain].tsx": $instance_domain_,
+    "./routes/unfollower.tsx": $unfollower,
   },
   islands: {
     "./islands/Countdown.tsx": $Countdown,
