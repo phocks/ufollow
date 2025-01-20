@@ -10,6 +10,7 @@ import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $instance_domain_ from "./routes/instance/[domain].tsx";
 import * as $unfollower from "./routes/unfollower.tsx";
+import * as $AppRegister from "./islands/AppRegister.tsx";
 import * as $Countdown from "./islands/Countdown.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $IdentityInput from "./islands/IdentityInput.tsx";
@@ -27,6 +28,7 @@ const manifest = {
     "./routes/unfollower.tsx": $unfollower,
   },
   islands: {
+    "./islands/AppRegister.tsx": $AppRegister,
     "./islands/Countdown.tsx": $Countdown,
     "./islands/Counter.tsx": $Counter,
     "./islands/IdentityInput.tsx": $IdentityInput,

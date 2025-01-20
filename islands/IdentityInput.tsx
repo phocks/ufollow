@@ -30,7 +30,7 @@ export default function IdentityInput() {
 
   if (isStored) {
     return (
-      <div class="space-y-2">
+      <div class="my-2">
         <p class="flex items-center">
           <span class="text-gray-500">@</span>
           <span>{localStorage.getItem("username")}</span>
