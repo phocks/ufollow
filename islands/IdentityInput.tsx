@@ -30,7 +30,7 @@ export default function IdentityInput() {
 
   if (isStored) {
     return (
-      <>
+      <div class="space-y-2">
         <p class="flex items-center">
           <span class="text-gray-500">@</span>
           <span>{localStorage.getItem("username")}</span>
@@ -44,7 +44,7 @@ export default function IdentityInput() {
         >
           Clear Stored Identity
         </button>
-      </>
+      </div>
     );
   }
 
