@@ -23,7 +23,7 @@ export default function AppRegister() {
     <div class="my-4">
       <button
         onClick={handleRegister}
-        class="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        class="px-4 py-1 bg-slate-500 text-white rounded hover:bg-gray-400"
       >
         Register with Instance
       </button>
