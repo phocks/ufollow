@@ -8,12 +8,13 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $countdown from "./routes/countdown.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
+import * as $index_old from "./routes/index__old.tsx";
 import * as $instance_domain_ from "./routes/instance/[domain].tsx";
-import * as $unfollower from "./routes/unfollower.tsx";
 import * as $AppRegister from "./islands/AppRegister.tsx";
 import * as $Countdown from "./islands/Countdown.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $IdentityInput from "./islands/IdentityInput.tsx";
+import * as $IdentityInput_old from "./islands/IdentityInput__old.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -24,14 +25,15 @@ const manifest = {
     "./routes/countdown.tsx": $countdown,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
+    "./routes/index__old.tsx": $index_old,
     "./routes/instance/[domain].tsx": $instance_domain_,
-    "./routes/unfollower.tsx": $unfollower,
   },
   islands: {
     "./islands/AppRegister.tsx": $AppRegister,
     "./islands/Countdown.tsx": $Countdown,
     "./islands/Counter.tsx": $Counter,
     "./islands/IdentityInput.tsx": $IdentityInput,
+    "./islands/IdentityInput__old.tsx": $IdentityInput_old,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

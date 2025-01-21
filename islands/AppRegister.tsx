@@ -1,4 +1,16 @@
-export default function AppRegister() {
+import type { Signal } from "@preact/signals";
+
+interface IdentityInputProps {
+  username: Signal<string>;
+  domain: Signal<string>;
+}
+
+const AppRegister = ({ username, domain }: IdentityInputProps) => {
+
+  if (username.value === "" || domain.value === "") {
+    return <></>;
+  }
+
   const resistrationData = {
     client_name: "Test Application",
     redirect_uris: "urn:ietf:wg:oauth:2.0:oob",
@@ -29,4 +41,6 @@ export default function AppRegister() {
       </button>
     </div>
   );
-}
+};
+
+export default AppRegister;
