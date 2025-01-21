@@ -1,34 +1,36 @@
-import { useEffect, useState } from "preact/hooks";
+import { effect, useSignal } from "@preact/signals";
 
 export default function IdentityInput() {
-  const [username, setUsername] = useState("");
-  const [domain, setDomain] = useState("");
-  const [isStored, setIsStored] = useState(false);
+  const username = useSignal("");
+  const domain = useSignal("");
+  const isStored = useSignal(false);
 
-  useEffect(() => {
+  effect(() => {
     const storedUsername = localStorage.getItem("username");
     const storedDomain = localStorage.getItem("domain");
     if (storedUsername && storedDomain) {
-      setIsStored(true);
+      isStored.value = true;
     }
-  }, []);
+  });
 
   const handleSubmit = (event: Event) => {
     event.preventDefault();
-    localStorage.setItem("username", username);
-    localStorage.setItem("domain", domain);
-    setUsername("");
-    setDomain("");
-    setIsStored(true);
+    localStorage.setItem("username", username.value);
+    localStorage.setItem("domain", domain.value);
+
+    username.value = "";
+    domain.value = "";
+    isStored.value = true;
   };
 
   const handleClear = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("domain");
-    setIsStored(false);
+    // setIsStored(false);
+    isStored.value = false;
   };
 
-  if (isStored) {
+  if (isStored.value) {
     return (
       <div class="my-2">
         <p class="flex items-center">
@@ -54,7 +56,7 @@ export default function IdentityInput() {
       <input
         type="text"
         value={username}
-        onInput={(e) => setUsername((e.target as HTMLInputElement).value)}
+        onInput={(e) => username.value = (e.target as HTMLInputElement).value}
         placeholder="username"
         class="px-2 py-1 border rounded w-28"
       />
@@ -62,7 +64,7 @@ export default function IdentityInput() {
       <input
         type="text"
         value={domain}
-        onInput={(e) => setDomain((e.target as HTMLInputElement).value)}
+        onInput={(e) => domain.value = (e.target as HTMLInputElement).value}
         placeholder="mastodon.social"
         class="px-2 py-1 border rounded w-42"
       />
