@@ -1,4 +1,4 @@
-import { useSignal } from "@preact/signals";
+import { batch, useSignal } from "@preact/signals";
 import { domain, username } from "../signals/auth.ts";
 
 const IdentityInput = () => {
@@ -10,8 +10,10 @@ const IdentityInput = () => {
 
     console.log("submitting", usernameLocal.value, domainLocal.value);
 
-    username.value = usernameLocal.value;
-    domain.value = domainLocal.value;
+    batch(() => {
+      username.value = usernameLocal.value;
+      domain.value = domainLocal.value;
+    });
   };
 
   return (
