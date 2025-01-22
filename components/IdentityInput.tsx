@@ -2,18 +2,10 @@ import { batch, useSignal } from "@preact/signals";
 import { domain, username } from "../signals/auth.ts";
 
 const IdentityInput = () => {
-  const usernameLocal = useSignal("");
-  const domainLocal = useSignal("");
-
   const handleSubmit = (event: Event) => {
     event.preventDefault();
 
-    console.log("submitting", usernameLocal.value, domainLocal.value);
-
-    batch(() => {
-      username.value = usernameLocal.value;
-      domain.value = domainLocal.value;
-    });
+    console.log("submitting");
   };
 
   return (
@@ -21,18 +13,16 @@ const IdentityInput = () => {
       <span class="text-gray-500">@</span>
       <input
         type="text"
-        value={usernameLocal.value}
-        onInput={(e) =>
-          usernameLocal.value = (e.target as HTMLInputElement).value}
+        value={username.value}
+        onInput={(e) => username.value = (e.target as HTMLInputElement).value}
         placeholder="username"
         class="px-2 py-1 border rounded w-28"
       />
       <span class="text-gray-500">@</span>
       <input
         type="text"
-        value={domainLocal.value}
-        onInput={(e) =>
-          domainLocal.value = (e.target as HTMLInputElement).value}
+        value={domain.value}
+        onInput={(e) => domain.value = (e.target as HTMLInputElement).value}
         placeholder="mastodon.social"
         class="px-2 py-1 border rounded w-42"
       />
