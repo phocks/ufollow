@@ -13,8 +13,9 @@ import * as $instance_domain_ from "./routes/instance/[domain].tsx";
 import * as $AppRegister from "./islands/AppRegister.tsx";
 import * as $Countdown from "./islands/Countdown.tsx";
 import * as $Counter from "./islands/Counter.tsx";
-import * as $IdentityInput from "./islands/IdentityInput.tsx";
 import * as $IdentityInput_old from "./islands/IdentityInput__old.tsx";
+import * as $InfoLogger from "./islands/InfoLogger.tsx";
+import * as $LoginIsland from "./islands/LoginIsland.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -32,8 +33,9 @@ const manifest = {
     "./islands/AppRegister.tsx": $AppRegister,
     "./islands/Countdown.tsx": $Countdown,
     "./islands/Counter.tsx": $Counter,
-    "./islands/IdentityInput.tsx": $IdentityInput,
     "./islands/IdentityInput__old.tsx": $IdentityInput_old,
+    "./islands/InfoLogger.tsx": $InfoLogger,
+    "./islands/LoginIsland.tsx": $LoginIsland,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

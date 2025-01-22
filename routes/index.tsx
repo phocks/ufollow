@@ -1,15 +1,13 @@
-import { useSignal } from "@preact/signals";
-import IdentityInput from "../islands/IdentityInput.tsx";
-import AppRegister from "../islands/AppRegister.tsx";
+import LoginIsland from "../islands/LoginIsland.tsx";
+import InfoLogger from "../islands/InfoLogger.tsx";
 
-export default function Unfollower() {
-  const username = useSignal("");
-  const domain = useSignal("");
-
+const Unfollower = () => {
   return (
     <div class="m-4">
-      <IdentityInput username={username} domain={domain} />
-      <AppRegister username={username} domain={domain} />
+      <InfoLogger />
+      <LoginIsland />
     </div>
   );
 }
+
+export default Unfollower;

@@ -1,19 +1,14 @@
-import type { Signal } from "@preact/signals";
 import { useSignal } from "@preact/signals";
+import { domain, username } from "../signals/auth.ts";
 
-interface IdentityInputProps {
-  username: Signal<string>;
-  domain: Signal<string>;
-}
-
-const IdentityInput = (
-  { username, domain }: IdentityInputProps,
-) => {
+const IdentityInput = () => {
   const usernameLocal = useSignal("");
   const domainLocal = useSignal("");
 
   const handleSubmit = (event: Event) => {
     event.preventDefault();
+
+    console.log("submitting", usernameLocal.value, domainLocal.value);
 
     username.value = usernameLocal.value;
     domain.value = domainLocal.value;
@@ -43,7 +38,7 @@ const IdentityInput = (
         type="submit"
         class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
-        Submit
+        Go!
       </button>
     </form>
   );
