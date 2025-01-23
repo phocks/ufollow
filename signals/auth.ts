@@ -12,4 +12,4 @@ domain.subscribe((value) => {
   localStorage.setItem("domain", value);
 });
 
-export const parsedDomain = signal<string | null>(null);
+export const baseUrl = signal<string | null>(null);

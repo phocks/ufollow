@@ -1,7 +1,7 @@
 import { computed } from "@preact/signals";
 import { z, ZodError } from "zod";
 
-import { domain, parsedDomain, username } from "../signals/auth.ts";
+import { domain, baseUrl, username } from "../signals/auth.ts";
 
 const urlSchema = z.string().url();
 
@@ -10,8 +10,8 @@ const IdentityInput = () => {
     e.preventDefault();
     console.log(username.value, domain.value);
     try {
-      parsedDomain.value = urlSchema.parse("https://" + domain.value);
-      console.log("Valid URL:", parsedDomain.value);
+      baseUrl.value = urlSchema.parse("https://" + domain.value);
+      console.log("Valid URL:", baseUrl.value);
     } catch (e) {
       if (e instanceof ZodError) {
         console.error("Invalid URL:", e.errors);
