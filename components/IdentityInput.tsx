@@ -16,6 +16,8 @@ const IdentityInput = () => {
       return;
     }
 
+    console.log("Valid URL:", url);
+
     baseUrl.value = url;
   };
 
