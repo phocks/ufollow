@@ -1,6 +1,6 @@
 import IdentityInput from "../components/IdentityInput.tsx";
 import { useEffect } from "preact/hooks";
-import { domain, username } from "../signals/auth.ts";
+import { baseUrl, domain, username } from "../signals/auth.ts";
 
 const TestIsland = () => {
   return (
