@@ -1,22 +1,22 @@
-import { computed } from "@preact/signals";
-import { z, ZodError } from "zod";
+import { z } from "zod";
+import { tryFn } from "../lib/errorHandling.ts";
 
-import { domain, baseUrl, username } from "../signals/auth.ts";
+import { baseUrl, domain, username } from "../signals/auth.ts";
 
 const urlSchema = z.string().url();
 
 const IdentityInput = () => {
   const onSubmit = (e: Event) => {
     e.preventDefault();
-    console.log(username.value, domain.value);
-    try {
-      baseUrl.value = urlSchema.parse("https://" + domain.value);
-      console.log("Valid URL:", baseUrl.value);
-    } catch (e) {
-      if (e instanceof ZodError) {
-        console.error("Invalid URL:", e.errors);
-      }
+
+    const [err, url] = tryFn(() => urlSchema.parse("https://" + domain.value));
+
+    if (err) {
+      console.error("Invalid URL:", err);
+      return;
     }
+
+    baseUrl.value = url;
   };
 
   return (

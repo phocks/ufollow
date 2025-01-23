@@ -13,3 +13,9 @@ domain.subscribe((value) => {
 });
 
 export const baseUrl = signal<string | null>(null);
+
+baseUrl.subscribe((value) => {
+  console.log("baseUrl changed:", value);
+
+  console.log(localStorage.getItem("application"));
+});
