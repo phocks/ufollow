@@ -1,13 +1,11 @@
 import { computed } from "@preact/signals";
 import { domain, username } from "../signals/auth.ts";
 
-const hasValues = computed(() => username.value !== "" && domain.value !== "");
-
 const IdentityInput = () => {
   const handleSubmit = (event: Event) => {
     event.preventDefault();
 
-    console.log("submitting");
+    
   };
 
   return (
@@ -30,25 +28,12 @@ const IdentityInput = () => {
         placeholder="mastodon.social"
         class="px-2 py-1 border rounded w-42"
       />
-
-      {hasValues.value
-        ? (
           <button
             type="submit"
             class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            Clear
+            Toot!
           </button>
-        )
-        : (
-          <button
-            type="submit"
-            class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-            style={{ opacity: 0.0 }}
-          >
-            Set
-          </button>
-        )}
     </form>
   );
 };
