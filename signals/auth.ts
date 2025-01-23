@@ -15,7 +15,11 @@ domain.subscribe((value) => {
 
 export const baseUrl = signal<string | null>(null);
 
-export const application = signal<object | null>(null);
+interface Application {
+  client_id: string;
+}
+
+export const application = signal<Application | null>(null);
 
 // Subscribe to baseUrl changes
 baseUrl.subscribe(async (url) => {
