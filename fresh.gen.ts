@@ -16,6 +16,7 @@ import * as $Counter from "./islands/Counter.tsx";
 import * as $IdentityInput_old from "./islands/IdentityInput__old.tsx";
 import * as $InfoLogger from "./islands/InfoLogger.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
+import * as $TestIsland from "./islands/TestIsland.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -36,6 +37,7 @@ const manifest = {
     "./islands/IdentityInput__old.tsx": $IdentityInput_old,
     "./islands/InfoLogger.tsx": $InfoLogger,
     "./islands/LoginIsland.tsx": $LoginIsland,
+    "./islands/TestIsland.tsx": $TestIsland,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
