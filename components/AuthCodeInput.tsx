@@ -1,53 +1,51 @@
 import { z } from "zod";
-import { tryFn } from "../lib/errorHandling.ts";
+import { authCode } from "../signals/auth.ts";
+import { useSignal } from "@preact/signals";
 
-import { baseUrl, domain, username } from "../signals/auth.ts";
-
-const urlSchema = z.string().url();
+const authCodeSchema = z.string();
 
 const IdentityInput = () => {
+  const inputText = useSignal("");
+
   const onSubmit = (e: Event) => {
     e.preventDefault();
 
-    const [err, url] = tryFn(() => urlSchema.parse("https://" + domain.value));
-
-    if (err) {
-      console.error("Invalid URL:", err);
-      return;
+    try {
+      const parsedAuthCode = authCodeSchema.parse(inputText.value);
+      authCode.value = parsedAuthCode;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        console.error("Validation failed: ", error.issues[0]);
+      } else {
+        console.error("Unexpected error: ", error);
+      }
     }
-
-    console.log("Valid URL:", url);
-
-    baseUrl.value = url;
   };
 
   return (
-    <form onSubmit={onSubmit} class="flex gap-2 items-center">
-      <span class="text-gray-500">@</span>
-      <input
-        type="text"
-        name="username"
-        value={username.value}
-        onInput={(e) => username.value = (e.target as HTMLInputElement).value}
-        placeholder="username"
-        class="px-2 py-1 border rounded w-28"
-      />
-      <span class="text-gray-500">@</span>
-      <input
-        type="text"
-        name="domain"
-        value={domain.value}
-        onInput={(e) => domain.value = (e.target as HTMLInputElement).value}
-        placeholder="mastodon.social"
-        class="px-2 py-1 border rounded w-42"
-      />
-      <button
-        type="submit"
-        class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Validate
-      </button>
-    </form>
+    <div class="my-4">
+      <form onSubmit={onSubmit} class="flex gap-2 items-center">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="auth">
+          Username
+        </label>
+        <input
+          type="text"
+          id="auth"
+          name="auth"
+          value={inputText.value}
+          onInput={(e) =>
+            inputText.value = (e.target as HTMLInputElement).value}
+          placeholder="xxxxxxxx"
+          class="px-2 py-1 border rounded w-64"
+        />
+        <button
+          type="submit"
+          class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Save
+        </button>
+      </form>
+    </div>
   );
 };
 

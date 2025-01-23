@@ -45,4 +45,8 @@ application.subscribe((value) => {
   console.log("Application changed:", value);
 });
 
-const authCode = signal<string>(localStorage.getItem("authCode") || "");
+export const authCode = signal<string>(localStorage.getItem("auth-code") || "");
+
+authCode.subscribe((value) => {
+  localStorage.setItem("auth-code", value);
+});
