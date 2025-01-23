@@ -1,8 +1,42 @@
-import { z } from "zod";
+import { REDIRECT_URI } from "../lib/constants.ts";
 import { authCode } from "../signals/auth.ts";
 import { useSignal } from "@preact/signals";
 
-const authCodeSchema = z.string();
+ const buildAccessTokenRequestData = (
+  client_id: string,
+  client_secret: string,
+  code: string
+): URLSearchParams => {
+  return new URLSearchParams({
+    client_id,
+    client_secret,
+    redirect_uri: REDIRECT_URI,
+    grant_type: "authorization_code",
+    code,
+    scope: "read write push"
+  });
+};
+
+ const getAccessToken = async (
+  domain: string,
+  client_id: string,
+  client_secret: string,
+  code: string,
+): Promise<string> => {
+  const params = buildAccessTokenRequestData(client_id, client_secret, code);
+
+  const response = await fetch(`https://${domain}/oauth/token`, {
+    method: "POST",
+    body: params,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error obtaining access token: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.access_token;
+};
 
 const IdentityInput = () => {
   const inputText = useSignal(authCode.value);
@@ -10,17 +44,6 @@ const IdentityInput = () => {
   const onSubmit = (e: Event) => {
     e.preventDefault();
     authCode.value = inputText.value;
-
-    // try {
-    //   const parsedAuthCode = authCodeSchema.parse(inputText.value);
-    //   authCode.value = parsedAuthCode;
-    // } catch (error) {
-    //   if (error instanceof z.ZodError) {
-    //     console.error("Validation failed: ", error.issues[0]);
-    //   } else {
-    //     console.error("Unexpected error: ", error);
-    //   }
-    // }
   };
 
   return (
