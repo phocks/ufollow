@@ -1,15 +1,18 @@
 import { computed } from "@preact/signals";
+import { z } from "zod";
+
 import { domain, username } from "../signals/auth.ts";
 
-const IdentityInput = () => {
-  const handleSubmit = (event: Event) => {
-    event.preventDefault();
+const stringSchema = z.string();
 
-    
+const IdentityInput = () => {
+  const onSubmit = (e: Event) => {
+    e.preventDefault();
+    console.log(username.value, domain.value);
   };
 
   return (
-    <form onSubmit={handleSubmit} class="flex gap-2 items-center">
+    <form onSubmit={onSubmit} class="flex gap-2 items-center">
       <span class="text-gray-500">@</span>
       <input
         type="text"
@@ -28,12 +31,12 @@ const IdentityInput = () => {
         placeholder="mastodon.social"
         class="px-2 py-1 border rounded w-42"
       />
-          <button
-            type="submit"
-            class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Toot!
-          </button>
+      <button
+        type="submit"
+        class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Validate
+      </button>
     </form>
   );
 };
