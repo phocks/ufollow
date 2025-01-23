@@ -15,9 +15,7 @@ domain.subscribe((value) => {
 
 export const baseUrl = signal<string | null>(null);
 
-export const application = signal<object>(
-  JSON.parse(localStorage.getItem("application") || "{}"),
-);
+export const application = signal<object | null>(null);
 
 // Subscribe to baseUrl changes
 baseUrl.subscribe(async (url) => {
@@ -25,15 +23,18 @@ baseUrl.subscribe(async (url) => {
     return;
   }
 
-  const cached = localStorage.getItem("application");
+  const currentDomain = new URL(url).host;
+  const storageKey = `application:${currentDomain}`;
+
+  const cached = localStorage.getItem(storageKey);
   if (cached) {
     application.value = JSON.parse(cached);
     return;
   }
 
-  const appResponse = await registerApplication(url);
-  localStorage.setItem("application", JSON.stringify(appResponse));
-  application.value = appResponse;
+  const app = await registerApplication(url);
+  localStorage.setItem(storageKey, JSON.stringify(app));
+  application.value = app;
 });
 
 application.subscribe((value) => {
