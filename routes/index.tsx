@@ -3,9 +3,9 @@ import TestIsland from "../islands/TestIsland.tsx";
 
 const Unfollower = () => {
   return (
-    <div class="m-4 flex flex-col gap-2">
+    <div class="m-4">
       <LoginIsland />
-      <TestIsland />
+      {/* <TestIsland /> */}
     </div>
   );
 }

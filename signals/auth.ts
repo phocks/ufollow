@@ -44,3 +44,5 @@ baseUrl.subscribe(async (url) => {
 application.subscribe((value) => {
   console.log("Application changed:", value);
 });
+
+const authCode = signal<string>(localStorage.getItem("authCode") || "");

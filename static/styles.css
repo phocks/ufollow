@@ -6,16 +6,27 @@
   h1 {
     @apply text-2xl font-bold mb-4;
   }
-
   h2 {
     @apply text-xl font-bold mb-3;
   }
-
   h3 {
     @apply text-lg font-bold mb-2;
   }
-
   p {
     @apply mb-4;
+  }
+
+  .btn {
+    @apply font-bold py-2 px-4 rounded;
+  }
+  .btn-blue {
+    @apply bg-blue-500 text-white;
+  }
+  .btn-blue:hover {
+    @apply bg-blue-700;
+  }
+
+  .btn-link {
+    @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800;
   }
 }
