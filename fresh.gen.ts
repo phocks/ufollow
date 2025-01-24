@@ -10,10 +10,6 @@ import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $index_old from "./routes/index__old.tsx";
 import * as $instance_domain_ from "./routes/instance/[domain].tsx";
-import * as $AppRegister from "./islands/AppRegister.tsx";
-import * as $Countdown from "./islands/Countdown.tsx";
-import * as $Counter from "./islands/Counter.tsx";
-import * as $IdentityInput_old from "./islands/IdentityInput__old.tsx";
 import * as $InfoLogger from "./islands/InfoLogger.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
 import * as $TestIsland from "./islands/TestIsland.tsx";
@@ -31,10 +27,6 @@ const manifest = {
     "./routes/instance/[domain].tsx": $instance_domain_,
   },
   islands: {
-    "./islands/AppRegister.tsx": $AppRegister,
-    "./islands/Countdown.tsx": $Countdown,
-    "./islands/Counter.tsx": $Counter,
-    "./islands/IdentityInput__old.tsx": $IdentityInput_old,
     "./islands/InfoLogger.tsx": $InfoLogger,
     "./islands/LoginIsland.tsx": $LoginIsland,
     "./islands/TestIsland.tsx": $TestIsland,

@@ -1,6 +1,4 @@
 import { REDIRECT_URI } from "../lib/constants.ts";
-import { authCode } from "../signals/auth.ts";
-import { useSignal } from "@preact/signals";
 
 const buildAccessTokenRequestData = (
   client_id: string,
@@ -39,12 +37,12 @@ const getAccessToken = async (
 };
 
 const IdentityInput = () => {
-  const inputText = useSignal(authCode.value);
-
   const onSubmit = (e: Event) => {
     e.preventDefault();
     console.log({ e });
-    authCode.value = inputText.value;
+    const form = e.target as HTMLFormElement;
+    const authCode = form.auth.value;
+    console.log("Auth code:", authCode);
   };
 
   return (
@@ -58,9 +56,7 @@ const IdentityInput = () => {
             type="text"
             id="auth"
             name="auth"
-            value={inputText.value}
-            onInput={(e) =>
-              inputText.value = (e.target as HTMLInputElement).value}
+            value=""
             placeholder="xxxxxxxx"
             class="px-2 py-1 border rounded w-64"
           />
@@ -68,7 +64,7 @@ const IdentityInput = () => {
             type="submit"
             class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            Save
+            Get access token
           </button>
         </div>
       </form>
