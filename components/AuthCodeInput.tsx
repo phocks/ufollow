@@ -50,8 +50,8 @@ const IdentityInput = () => {
   return (
     <div class="my-4">
       <form onSubmit={onSubmit} class="flex flex-col gap-2">
-        <label class="block text-gray-700 text-sm font-bold" for="auth">
-          Auth code
+        <label class="block text-gray-700 text-sm" for="auth">
+          Auth code (from login page)
         </label>
         <div class="flex gap-2">
           <input
