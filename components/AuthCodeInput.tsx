@@ -1,4 +1,5 @@
 import { REDIRECT_URI } from "../lib/constants.ts";
+import { application, domain } from "../signals/auth.ts";
 
 const buildAccessTokenRequestData = (
   client_id: string,
@@ -43,6 +44,17 @@ const IdentityInput = () => {
     const form = e.target as HTMLFormElement;
     const authCode = form.auth.value;
     console.log("Auth code:", authCode);
+
+    if (!application.value) return;
+
+    const token = getAccessToken(
+      domain.value,
+      application.value.client_id,
+      application.value.client_secret,
+      authCode,
+    );
+
+    console.log("Access token:", token);
   };
 
   return (

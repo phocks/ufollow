@@ -14,10 +14,10 @@ export const registerApplication = async (baseUrl: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      client_name: "Test Application",
+      client_name: "Ufollow for Mastodon",
       redirect_uris: REDIRECT_URI,
       scopes: "read write push",
-      website: "https://myapp.example",
+      website: "https://ufollow.pp.ua",
     }),
   }).then((res) => res.json());
 

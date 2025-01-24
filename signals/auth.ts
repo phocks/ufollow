@@ -17,6 +17,7 @@ export const baseUrl = signal<string | null>(null);
 
 interface Application {
   client_id: string;
+  client_secret: string;
 }
 
 export const application = signal<Application | null>(null);
