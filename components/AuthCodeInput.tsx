@@ -1,6 +1,13 @@
 import { REDIRECT_URI } from "../lib/constants.ts";
 import { application, domain } from "../signals/auth.ts";
 
+export interface TokenResponse {
+  access_token: string;
+  token_type: "Bearer";
+  scope: string;
+  created_at: number;
+}
+
 const buildAccessTokenRequestData = (
   client_id: string,
   client_secret: string,
@@ -16,12 +23,19 @@ const buildAccessTokenRequestData = (
   });
 };
 
+export interface TokenResponse {
+  access_token: string;
+  token_type: "Bearer";
+  scope: string;
+  created_at: number;
+}
+
 const getAccessToken = async (
   domain: string,
   client_id: string,
   client_secret: string,
   code: string,
-): Promise<string> => {
+): Promise<TokenResponse> => {
   const params = buildAccessTokenRequestData(client_id, client_secret, code);
 
   const response = await fetch(`https://${domain}/oauth/token`, {
@@ -40,7 +54,7 @@ const getAccessToken = async (
 const IdentityInput = () => {
   const onSubmit = async (e: Event) => {
     e.preventDefault();
-    
+
     const form = e.target as HTMLFormElement;
     const authCode = form.auth.value;
     console.log("Auth code:", authCode);
