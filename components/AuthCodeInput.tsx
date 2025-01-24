@@ -2,10 +2,10 @@ import { REDIRECT_URI } from "../lib/constants.ts";
 import { authCode } from "../signals/auth.ts";
 import { useSignal } from "@preact/signals";
 
- const buildAccessTokenRequestData = (
+const buildAccessTokenRequestData = (
   client_id: string,
   client_secret: string,
-  code: string
+  code: string,
 ): URLSearchParams => {
   return new URLSearchParams({
     client_id,
@@ -13,11 +13,11 @@ import { useSignal } from "@preact/signals";
     redirect_uri: REDIRECT_URI,
     grant_type: "authorization_code",
     code,
-    scope: "read write push"
+    scope: "read write push",
   });
 };
 
- const getAccessToken = async (
+const getAccessToken = async (
   domain: string,
   client_id: string,
   client_secret: string,
@@ -43,6 +43,7 @@ const IdentityInput = () => {
 
   const onSubmit = (e: Event) => {
     e.preventDefault();
+    console.log({ e });
     authCode.value = inputText.value;
   };
 
