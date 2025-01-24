@@ -34,20 +34,23 @@ const getAccessToken = async (
   }
 
   const data = await response.json();
-  return data.access_token;
+  return data;
 };
 
 const IdentityInput = () => {
-  const onSubmit = (e: Event) => {
+  const onSubmit = async (e: Event) => {
     e.preventDefault();
-    console.log({ e });
+    
     const form = e.target as HTMLFormElement;
     const authCode = form.auth.value;
     console.log("Auth code:", authCode);
 
-    if (!application.value) return;
+    if (!application.value) {
+      console.error("Application not set");
+      return;
+    }
 
-    const token = getAccessToken(
+    const token = await getAccessToken(
       domain.value,
       application.value.client_id,
       application.value.client_secret,
