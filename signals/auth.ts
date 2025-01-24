@@ -1,4 +1,5 @@
 import { computed, effect, signal } from "@preact/signals";
+import { mite } from "../lib/persistentSignal.ts";
 import { registerApplication } from "../utils/application.ts";
 import { AccessTokenResponse } from "../components/AuthCodeInput.tsx";
 
@@ -18,17 +19,8 @@ const tokenTest = async (url: string, token: AccessTokenResponse) => {
   return data;
 };
 
-export const username = signal<string>(localStorage.getItem("username") || "");
-
-username.subscribe((value) => {
-  localStorage.setItem("username", value);
-});
-
-export const domain = signal<string>(localStorage.getItem("domain") || "");
-
-domain.subscribe((value) => {
-  localStorage.setItem("domain", value);
-});
+export const username = mite<string>("username", "");
+export const domain = mite<string>("domain", "");
 
 export const baseUrl = signal<string | null>(null);
 
