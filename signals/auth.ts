@@ -1,5 +1,22 @@
 import { computed, effect, signal } from "@preact/signals";
 import { registerApplication } from "../utils/application.ts";
+import { AccessTokenResponse } from "../components/AuthCodeInput.tsx";
+
+const tokenTest = async (url: string, token: AccessTokenResponse) => {
+  const response = await fetch(url + "/api/v1/accounts/verify_credentials", {
+    headers: {
+      Authorization: `Bearer ${token?.access_token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error verifying token: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log("Test data:", data);
+  return data;
+};
 
 export const username = signal<string>(localStorage.getItem("username") || "");
 
@@ -28,20 +45,50 @@ baseUrl.subscribe(async (url) => {
     return;
   }
 
-  const currentDomain = new URL(url).host;
-  const storageKey = `application:${currentDomain}`;
+  {
+    const currentDomain = new URL(url).host;
+    const storageKey = `application:${currentDomain}`;
 
-  const cached = localStorage.getItem(storageKey);
-  if (cached) {
-    application.value = JSON.parse(cached);
-    return;
+    const cached = localStorage.getItem(storageKey);
+    if (cached) {
+      application.value = JSON.parse(cached);
+    } else {
+      const app = await registerApplication(url);
+      localStorage.setItem(storageKey, JSON.stringify(app));
+      application.value = app;
+    }
   }
 
-  const app = await registerApplication(url);
-  localStorage.setItem(storageKey, JSON.stringify(app));
-  application.value = app;
+  {
+    const currentDomain = new URL(url).host;
+    const storageKey = `access-token:${currentDomain}`;
+
+    const cached = localStorage.getItem(storageKey);
+    if (cached) {
+      accessToken.value = JSON.parse(cached);
+    }
+  }
 });
 
 application.subscribe((value) => {
   console.log("Application changed:", value);
+});
+
+export const accessToken = signal<AccessTokenResponse | null>(null);
+
+accessToken.subscribe((token) => {
+  console.log("Access token changed:", token);
+
+  if (!baseUrl.value) {
+    return;
+  }
+
+  if (!token) {
+    return;
+  }
+
+  const currentDomain = new URL(baseUrl.value).host;
+  const storageKey = `access-token:${currentDomain}`;
+
+  localStorage.setItem(storageKey, JSON.stringify(token));
 });
