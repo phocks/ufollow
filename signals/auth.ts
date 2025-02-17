@@ -80,7 +80,7 @@ accessToken.subscribe((token) => {
   }
 
   const currentDomain = new URL(baseUrl.value).host;
-  const storageKey = `access-token:${currentDomain}`;
+  const storageKey = `access-token:${username}@${currentDomain}`;
 
   localStorage.setItem(storageKey, JSON.stringify(token));
 });
