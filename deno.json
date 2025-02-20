@@ -33,7 +33,8 @@
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
     "$std/": "https://deno.land/std@0.216.0/",
     "ts-pattern": "npm:ts-pattern@^5.6.2",
-    "zod": "npm:zod@^3.24.1"
+    "zod": "npm:zod@^3.24.1",
+    "~/": "./"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

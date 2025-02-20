@@ -1,4 +1,5 @@
 import { type PageProps } from "$fresh/server.ts";
+
 export default function App({ Component }: PageProps) {
   return (
     <html>
@@ -9,7 +10,9 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href="/styles.css" />
       </head>
       <body>
-        <Component />
+        <div class="m-6">
+          <Component />
+        </div>
       </body>
     </html>
   );
