@@ -6,10 +6,12 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
-import * as $instance_domain_ from "./routes/instance/[domain].tsx";
+import * as $instance_domain_username_index from "./routes/instance/[domain]/[username]/index.tsx";
+import * as $instance_domain_index from "./routes/instance/[domain]/index.tsx";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $InfoLogger from "./islands/InfoLogger.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
+import * as $Main from "./islands/Main.tsx";
 import * as $TestIsland from "./islands/TestIsland.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
@@ -19,12 +21,15 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/api/joke.ts": $api_joke,
     "./routes/index.tsx": $index,
-    "./routes/instance/[domain].tsx": $instance_domain_,
+    "./routes/instance/[domain]/[username]/index.tsx":
+      $instance_domain_username_index,
+    "./routes/instance/[domain]/index.tsx": $instance_domain_index,
     "./routes/login/index.tsx": $login_index,
   },
   islands: {
     "./islands/InfoLogger.tsx": $InfoLogger,
     "./islands/LoginIsland.tsx": $LoginIsland,
+    "./islands/Main.tsx": $Main,
     "./islands/TestIsland.tsx": $TestIsland,
   },
   baseUrl: import.meta.url,

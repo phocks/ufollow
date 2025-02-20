@@ -1,11 +1,11 @@
-const Unfollower = () => {
+import Main from "../islands/Main.tsx";
+
+const Ufollow = () => {
   return (
-    <div class="min-h-screen flex items-center justify-center">
-      <div class="m-4">
-        <h3>ufollow</h3>
-      </div>
+    <div class="m-8">
+      <Main />
     </div>
   );
 };
 
-export default Unfollower;
+export default Ufollow;
