@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { Handlers, PageProps } from "$fresh/server.ts";
 import { match, P } from "ts-pattern";
-import { registerApplication } from "~/lib/application.ts";
+import { getClientToken, registerApplication } from "~/lib/application.ts";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 const urlSchema = z.string().url();
 
@@ -31,14 +31,42 @@ const getApplication = async (baseUrl: string) => {
   return application;
 };
 
+const getToken = async (
+  baseUrl: string,
+  clientId: string,
+  clientSecret: string,
+) => {
+  const token = await getClientToken(
+    { baseUrl, clientId, clientSecret },
+  );
+
+  return token;
+};
+
+const doAuth = async (baseUrl: string) => {
+  const application = await getApplication(baseUrl);
+  console.log("application:", application);
+
+
+  const token = await getToken(
+    baseUrl,
+    application.client_id,
+    application.client_secret,
+  );
+
+  return token;
+};
+
 const Main = (props: any) => {
   const { domain, username } = props.data;
   const baseUrl = urlSchema.parse("https://" + domain);
   const user = { username: username.replace("@", "") };
 
-  getApplication(baseUrl).then((application) => {
-    console.log("application:", application);
-  });
+  if (IS_BROWSER) {
+    doAuth(baseUrl).then((token) => {
+      console.log("token:", token);
+    });
+  }
 
   return (
     <div class="">

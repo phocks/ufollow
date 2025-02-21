@@ -17,9 +17,28 @@ export const registerApplication = async (baseUrl: string) => {
   return application;
 };
 
-export const buildTokenUrl = (baseUrl: string): string => {
-  return `${baseUrl}/oauth/token`;
-}
+export const getClientToken = async (
+  { baseUrl, clientId, clientSecret }: {
+    baseUrl: string;
+    clientId: string;
+    clientSecret: string;
+  },
+): Promise<string> => {
+  const token = await fetch(baseUrl + "/oauth/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: REDIRECT_URI,
+      grant_type: "client_credentials",
+    }),
+  }).then((res) => res.json());
+
+  return token;
+};
 
 export const buildAuthorizationUrl = (
   baseUrl: string,
@@ -31,5 +50,6 @@ export const buildAuthorizationUrl = (
     redirect_uri: REDIRECT_URI,
     response_type: "code",
   });
+
   return `${baseUrl}/oauth/authorize?${params}`;
 };
