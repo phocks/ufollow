@@ -1,7 +1,7 @@
 import { match, P } from "ts-pattern";
 
 import { application, baseUrl, domain, username, accessToken } from "../signals/auth.ts";
-import { buildAuthorizationUrl } from "../utils/application.ts";
+import { buildAuthorizationUrl } from "~/lib/application.ts";
 
 import AuthCodeInput from "./AuthCodeInput.tsx";
 

@@ -1,4 +1,4 @@
-import { REDIRECT_URI } from "../lib/constants.ts";
+import { REDIRECT_URI } from "~/lib/constants.ts";
 
 export const registerApplication = async (baseUrl: string) => {
   const application = await fetch(baseUrl + "/api/v1/apps", {
@@ -16,6 +16,10 @@ export const registerApplication = async (baseUrl: string) => {
 
   return application;
 };
+
+export const buildTokenUrl = (baseUrl: string): string => {
+  return `${baseUrl}/oauth/token`;
+}
 
 export const buildAuthorizationUrl = (
   baseUrl: string,

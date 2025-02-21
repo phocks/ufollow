@@ -1,6 +1,6 @@
 import { computed, effect, signal } from "@preact/signals";
-import { mite } from "../lib/persistentSignal.ts";
-import { registerApplication } from "../utils/application.ts";
+import { mite } from "~/lib/persistentSignal.ts";
+import { registerApplication } from "../lib/application.ts";
 import { AccessTokenResponse } from "../components/AuthCodeInput.tsx";
 
 const tokenTest = async (url: string, token: AccessTokenResponse) => {
