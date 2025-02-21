@@ -1,7 +1,15 @@
 import { z } from "zod";
 import { match, P } from "ts-pattern";
-import { getClientToken, registerApplication } from "~/lib/application.ts";
+import {
+  accountLookup,
+  getAccountFollowing,
+  getClientToken,
+  registerApplication,
+  verifyCredentials,
+  getAllFollowing
+} from "~/lib/application.ts";
 import { IS_BROWSER } from "$fresh/runtime.ts";
+import { useEffect } from "preact/hooks";
 
 const urlSchema = z.string().url();
 
@@ -12,8 +20,6 @@ const getApplication = async (baseUrl: string) => {
   const applicationStorageKey = `application:${currentDomain}`;
   console.log("applicationStorageKey:", applicationStorageKey);
   const cachedApplication = localStorage.getItem(applicationStorageKey);
-
-  console.log("cachedApplication:", cachedApplication);
 
   // If the application is not cached, register it
   const application = await match(cachedApplication)
@@ -43,10 +49,8 @@ const getToken = async (
   return token;
 };
 
-const doAuth = async (baseUrl: string) => {
+const doAuth = async (baseUrl: string, user: string) => {
   const application = await getApplication(baseUrl);
-  console.log("application:", application);
-
 
   const token = await getToken(
     baseUrl,
@@ -54,7 +58,36 @@ const doAuth = async (baseUrl: string) => {
     application.client_secret,
   );
 
-  return token;
+  console.log("token:", token);
+
+  const verification = await verifyCredentials(baseUrl, token.access_token);
+
+  console.log("verification:", verification);
+
+  const account = await accountLookup(baseUrl, user);
+
+  console.log("account:", account);
+
+  return { token, verification, account };
+};
+
+const init = async (baseUrl: string, username: string) => {
+  const response = await doAuth(baseUrl, username);
+  console.log("response:", response);
+
+  const following = await getAccountFollowing(
+    baseUrl,
+    response.account.id,
+    response.token.access_token,
+  );
+  console.log("following:", following);
+
+  const allFollowing = await getAllFollowing(
+    baseUrl,
+    response.account.id,
+    response.token.access_token,
+  );
+  console.log("allFollowing:", allFollowing);
 };
 
 const Main = (props: any) => {
@@ -62,11 +95,9 @@ const Main = (props: any) => {
   const baseUrl = urlSchema.parse("https://" + domain);
   const user = { username: username.replace("@", "") };
 
-  if (IS_BROWSER) {
-    doAuth(baseUrl).then((token) => {
-      console.log("token:", token);
-    });
-  }
+  useEffect(() => {
+    init(baseUrl, user.username);
+  }, []);
 
   return (
     <div class="">
