@@ -10,15 +10,16 @@ export const handler: Handlers = {
 
     console.log("baseUrl:", baseUrl);
 
-    const resp = await ctx.render();
+    const resp = await ctx.render(baseUrl);
     return resp;
   },
 };
 
 const GreetPage = (props: PageProps) => {
+  console.log("props:", props);
   return (
     <main>
-      <p>Greetings to you!</p>
+      <p>Greetings to you {props.data}!</p>
     </main>
   );
 };

@@ -6,6 +6,8 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
+import * as $instance_domain_username_index from "./routes/instance/[domain]/[username]/index.tsx";
+import * as $instance_domain_index from "./routes/instance/[domain]/index.tsx";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $lookup_domain_username_index from "./routes/lookup/[domain]/[username]/index.tsx";
 import * as $lookup_domain_index from "./routes/lookup/[domain]/index.tsx";
@@ -21,6 +23,9 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/api/joke.ts": $api_joke,
     "./routes/index.tsx": $index,
+    "./routes/instance/[domain]/[username]/index.tsx":
+      $instance_domain_username_index,
+    "./routes/instance/[domain]/index.tsx": $instance_domain_index,
     "./routes/login/index.tsx": $login_index,
     "./routes/lookup/[domain]/[username]/index.tsx":
       $lookup_domain_username_index,
