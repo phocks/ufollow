@@ -82,12 +82,12 @@ const init = async (baseUrl: string, username: string) => {
   );
   console.log("following:", following);
 
-  // const allFollowing = await getAllFollowing(
-  //   baseUrl,
-  //   response.account.id,
-  //   response.token.access_token,
-  // );
-  // console.log("allFollowing:", allFollowing);
+  const allFollowing = await getAllFollowing(
+    baseUrl,
+    response.account.id,
+    response.token.access_token,
+  );
+  console.log("allFollowing:", allFollowing);
 };
 
 const Main = (props: any) => {

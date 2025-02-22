@@ -28,7 +28,7 @@ export const getClientToken = async (
   { baseUrl, clientId, clientSecret }: {
     baseUrl: string;
     clientId: string;
-    clientSecret: string;
+    clientSecret: string;  
   },
 ): Promise<Token> => {
   const token = await fetch(baseUrl + "/oauth/token", {
@@ -147,6 +147,7 @@ export const getAllFollowing = async (
 
     // Parse Link header for next page
     const linkHeader = response.headers.get("Link");
+    console.log(linkHeader);
     nextUrl = null;
 
     if (linkHeader) {
