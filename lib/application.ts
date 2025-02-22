@@ -108,9 +108,10 @@ export const getAccountFollowing = async (
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        Link: `<${baseUrl}/api/v1/accounts/${accountId}/following?${params}>; rel="next"`,
+        Link:
+          `<${baseUrl}/api/v1/accounts/${accountId}/following?${params}>; rel="next"`,
       },
-    }
+    },
   );
 
   if (!response.ok) {
@@ -120,26 +121,20 @@ export const getAccountFollowing = async (
   return await response.json();
 };
 
-interface PaginationParams {
-  limit?: number;
-  max_id?: string;
-  since_id?: string;
-  min_id?: string;
-}
-
 export const getAllFollowing = async (
   baseUrl: string,
   accountId: string,
-  accessToken: string
+  accessToken: string,
 ): Promise<any[]> => {
   let allFollowing: any[] = [];
-  let nextUrl: string | null = `${baseUrl}/api/v1/accounts/${accountId}/following`;
+  let nextUrl: string | null =
+    `${baseUrl}/api/v1/accounts/${accountId}/following`;
 
   while (nextUrl) {
     const response = await fetch(nextUrl, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-      }
+      },
     });
 
     if (!response.ok) {
