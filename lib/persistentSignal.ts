@@ -9,7 +9,7 @@ export function mite<T>(key: string, defaultValue: T): Signal<T> {
     : defaultValue;
   const sig = signal<T>(initial);
 
-  sig.subscribe((value: any) => {
+  sig.subscribe((value: T) => {
     localStorage.setItem(
       key, 
       typeof value === 'string' 
