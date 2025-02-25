@@ -62,15 +62,9 @@ baseUrl.subscribe(async (url) => {
   }
 });
 
-application.subscribe((value) => {
-  console.log("Application changed:", value);
-});
-
 export const accessToken = signal<AccessTokenResponse | null>(null);
 
 accessToken.subscribe((token: any) => {
-  console.log("Access token changed:", token);
-
   if (!baseUrl.value) {
     return;
   }

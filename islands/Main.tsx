@@ -90,23 +90,21 @@ const init = async (baseUrl: string, username: string) => {
   // console.log("allFollowing:", allFollowing);
 };
 
-interface MyComponentProps {
+interface Props {
   domain: string;
   username: string;
-};
+}
 
-const Main = ({domain, username}: MyComponentProps) => {
-  const baseUrl = urlSchema.parse("https://" + domain);
+export default function ({ domain, username }: Props) {
+  const url = new URL(`https://${domain}`);
   const user = { username: username.replace("@", "") };
 
   useEffect(() => {
-    init(baseUrl, user.username);
+    init(url.origin, user.username);
   }, []);
 
   return (
     <div class="">
     </div>
   );
-};
-
-export default Main;
+}
