@@ -90,8 +90,12 @@ const init = async (baseUrl: string, username: string) => {
   // console.log("allFollowing:", allFollowing);
 };
 
-const Main = (props: any) => {
-  const { domain, username } = props.data;
+interface MyComponentProps {
+  domain: string;
+  username: string;
+};
+
+const Main = ({domain, username}: MyComponentProps) => {
   const baseUrl = urlSchema.parse("https://" + domain);
   const user = { username: username.replace("@", "") };
 
