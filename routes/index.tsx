@@ -1,9 +1,12 @@
+import { signal } from "@preact/signals";
+const count = signal(0);
 
+import UserDisplay from "~/islands/UserDisplay.tsx";
 
 const Ufollow = () => {
   return (
-    <div class="m-8">
-      ufollow
+    <div>
+      <UserDisplay count={count} />
     </div>
   );
 };

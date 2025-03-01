@@ -15,6 +15,7 @@ import * as $InfoLogger from "./islands/InfoLogger.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
 import * as $Main from "./islands/Main.tsx";
 import * as $TestIsland from "./islands/TestIsland.tsx";
+import * as $UserDisplay from "./islands/UserDisplay.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -36,6 +37,7 @@ const manifest = {
     "./islands/LoginIsland.tsx": $LoginIsland,
     "./islands/Main.tsx": $Main,
     "./islands/TestIsland.tsx": $TestIsland,
+    "./islands/UserDisplay.tsx": $UserDisplay,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
