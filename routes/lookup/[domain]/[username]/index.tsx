@@ -10,6 +10,7 @@ export const handler: Handlers = {
 };
 
 export default function (props: PageProps) {
+  console.log(props);
   const { domain, username } = props.params;
   return <Main domain={domain} username={username} />;
 }
