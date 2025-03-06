@@ -1,5 +1,5 @@
-import IdentityInput from "../components/IdentityInput.tsx";
-import LoginLink from "../components/LoginLink.tsx";
+import IdentityInput from "~/components/IdentityInput.tsx";
+import LoginLink from "~/components/LoginLink.tsx";
 
 const LoginIsland = () => {
   return (
