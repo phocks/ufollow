@@ -25,6 +25,7 @@
     "@emotion/css": "npm:@emotion/css@^11.13.5",
     "@nanostores/persistent": "npm:@nanostores/persistent@^0.10.2",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@^0.5.10",
+    "@yuzu-ui/yuzu-ui": "jsr:@yuzu-ui/yuzu-ui@^0.1.0",
     "await-to-js": "npm:await-to-js@^3.0.0",
     "flyonui": "npm:flyonui@^1.3.0",
     "preact": "https://esm.sh/preact@10.22.0",

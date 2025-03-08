@@ -21,8 +21,7 @@ export const handler: Handlers<Data> = {
 export default function (props: PageProps<Data>) {
   const { results, query } = props.data;
   return (
-    <Interactive>
-    </Interactive>
+    <Input></Input>
     // <div className="relative">
 
     //   <label htmlFor="UserEmail" className="sr-only">Email</label>

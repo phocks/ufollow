@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    max-width: 600px;
+}
+
 @layer components {
-  .btn {
-    @apply bg-blue-500;
-  }
+    .btn {
+        @apply bg-blue-500;
+    }
 }
