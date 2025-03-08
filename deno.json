@@ -11,15 +11,11 @@
   },
   "lint": {
     "rules": {
-      "tags": [
-        "fresh",
-        "recommended"
-      ]
+      "tags": ["fresh", "recommended"],
+      "exclude": ["no-explicit-any", "no-unused-vars"]
     }
   },
-  "exclude": [
-    "**/_fresh/*"
-  ],
+  "exclude": ["**/_fresh/*"],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "@emotion/css": "npm:@emotion/css@^11.13.5",
