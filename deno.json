@@ -22,6 +22,7 @@
   ],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
+    "@emotion/css": "npm:@emotion/css@^11.13.5",
     "@nanostores/persistent": "npm:@nanostores/persistent@^0.10.2",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@^0.5.10",
     "await-to-js": "npm:await-to-js@^3.0.0",

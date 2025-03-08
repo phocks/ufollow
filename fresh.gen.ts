@@ -13,6 +13,7 @@ import * as $login_legacy_index from "./routes/login-legacy/index.tsx";
 import * as $lookup_domain_username_index from "./routes/lookup/[domain]/[username]/index.tsx";
 import * as $lookup_domain_index from "./routes/lookup/[domain]/index.tsx";
 import * as $InfoLogger from "./islands/InfoLogger.tsx";
+import * as $Interactive from "./islands/Interactive.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
 import * as $Main from "./islands/Main.tsx";
 import * as $TestIsland from "./islands/TestIsland.tsx";
@@ -36,6 +37,7 @@ const manifest = {
   },
   islands: {
     "./islands/InfoLogger.tsx": $InfoLogger,
+    "./islands/Interactive.tsx": $Interactive,
     "./islands/LoginIsland.tsx": $LoginIsland,
     "./islands/Main.tsx": $Main,
     "./islands/TestIsland.tsx": $TestIsland,

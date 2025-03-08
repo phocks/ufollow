@@ -1,4 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import Input from "~/components/Input.tsx";
+import Interactive from "~/islands/Interactive.tsx";
 
 const NAMES = ["Alice", "Bob", "Charlie", "Dave", "Eve", "Frank"];
 
@@ -19,9 +21,10 @@ export const handler: Handlers<Data> = {
 export default function (props: PageProps<Data>) {
   const { results, query } = props.data;
   return (
-    <a class="btn">Hello</a>
+    <Interactive>
+    </Interactive>
     // <div className="relative">
-      
+
     //   <label htmlFor="UserEmail" className="sr-only">Email</label>
 
     //   <input
