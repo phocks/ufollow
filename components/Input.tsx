@@ -1,13 +1,19 @@
-export default function () {
+interface Props {
+  value: string;
+}
+
+export default function ({ value }: Props) {
   return (
-    <div class="relative">
+    <span class="relative">
       <label for="Search" class="sr-only">Search</label>
 
       <input
         type="text"
         id="Search"
-        placeholder="Mastodon handle... eg. @user@mastodon.social"
-        class="w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-xs sm:text-sm"
+        name="user"
+        placeholder="@username@domain.social"
+        class="w-full border-gray-200 py-2.5 pe-10 shadow-xs sm:text-sm"
+        value={value}
       />
 
       <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
@@ -26,6 +32,6 @@ export default function () {
           </svg>
         </button>
       </span>
-    </div>
+    </span>
   );
 }
