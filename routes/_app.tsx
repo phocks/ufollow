@@ -9,7 +9,7 @@ export default function App({ Component }: PageProps) {
         <title>ufollow - an app by @phocks@bne.social</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body class="dark:bg-gray-900 dark:text-white">
+      <body>
         <div class="m-6">
           <Component />
         </div>

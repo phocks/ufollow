@@ -1,5 +1,5 @@
 interface Props {
-  value: string;
+  value?: string;
 }
 
 export default function ({ value }: Props) {
