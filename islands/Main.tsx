@@ -95,7 +95,7 @@ interface Props {
   username: string;
 }
 
-export default function ({ domain, username }: Props) {
+export default ({ domain, username }: Props) => {
   const url = new URL(`https://${domain}`);
   const user = { username: username.replace("@", "") };
 
@@ -107,4 +107,4 @@ export default function ({ domain, username }: Props) {
     <div class="">
     </div>
   );
-}
+};

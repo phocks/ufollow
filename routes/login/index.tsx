@@ -1,5 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
+import UserCheck from "~/islands/UserCheck.tsx";
 
 interface Data {
   user: string;
@@ -47,12 +48,11 @@ export default function (props: PageProps<Data>) {
   // Handle valid user case
   return (
     <div>
-      <h1>Hello {parsedUser?.username || "User"}</h1>
       {parsedUser && (
-        <div>
-          <p>Username: {parsedUser.username}</p>
-          <p>Domain: {parsedUser.domain}</p>
-        </div>
+        <UserCheck
+          username={parsedUser.username}
+          domain={parsedUser.domain}
+        />
       )}
     </div>
   );
