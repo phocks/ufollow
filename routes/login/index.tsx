@@ -1,5 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
+import EnsureApplication from "~/islands/EnsureApplication.tsx";
 import UserCheck from "~/islands/UserCheck.tsx";
 
 interface Data {
@@ -27,32 +28,35 @@ export const handler: Handlers<Data> = {
 };
 
 export default function (props: PageProps<Data>) {
-  const { user, parsedUser, error } = props.data;
+  const { user: userParam, parsedUser, error } = props.data;
 
   // Handle the error case
   if (error) {
     return (
       <div class="error-container">
         <div class="error-message">{error}</div>
-        <div>Provided user: {user}</div>
+        <div>Provided user: {userParam}</div>
         <a href="/">Go Back</a>
       </div>
     );
   }
 
   // Handle empty state
-  if (!user) {
+  if (!userParam) {
     return <div>No user provided</div>;
   }
+
+  console.log(parsedUser);
 
   // Handle valid user case
   return (
     <div>
       {parsedUser && (
-        <UserCheck
-          username={parsedUser.username}
-          domain={parsedUser.domain}
-        />
+        // <UserCheck
+        //   username={parsedUser.username}
+        //   domain={parsedUser.domain}
+        // />
+        <EnsureApplication />
       )}
     </div>
   );

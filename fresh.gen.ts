@@ -8,11 +8,11 @@ import * as $api_joke from "./routes/api/joke.ts";
 import * as $index from "./routes/index.tsx";
 import * as $instance_domain_username_index from "./routes/instance/[domain]/[username]/index.tsx";
 import * as $instance_domain_index from "./routes/instance/[domain]/index.tsx";
-import * as $login_form_index from "./routes/login-form/index.tsx";
 import * as $login_legacy_index from "./routes/login-legacy/index.tsx";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $lookup_domain_username_index from "./routes/lookup/[domain]/[username]/index.tsx";
 import * as $lookup_domain_index from "./routes/lookup/[domain]/index.tsx";
+import * as $EnsureApplication from "./islands/EnsureApplication.tsx";
 import * as $InfoLogger from "./islands/InfoLogger.tsx";
 import * as $Interactive from "./islands/Interactive.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
@@ -31,7 +31,6 @@ const manifest = {
     "./routes/instance/[domain]/[username]/index.tsx":
       $instance_domain_username_index,
     "./routes/instance/[domain]/index.tsx": $instance_domain_index,
-    "./routes/login-form/index.tsx": $login_form_index,
     "./routes/login-legacy/index.tsx": $login_legacy_index,
     "./routes/login/index.tsx": $login_index,
     "./routes/lookup/[domain]/[username]/index.tsx":
@@ -39,6 +38,7 @@ const manifest = {
     "./routes/lookup/[domain]/index.tsx": $lookup_domain_index,
   },
   islands: {
+    "./islands/EnsureApplication.tsx": $EnsureApplication,
     "./islands/InfoLogger.tsx": $InfoLogger,
     "./islands/Interactive.tsx": $Interactive,
     "./islands/LoginIsland.tsx": $LoginIsland,
