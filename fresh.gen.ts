@@ -17,6 +17,7 @@ import * as $InfoLogger from "./islands/InfoLogger.tsx";
 import * as $Interactive from "./islands/Interactive.tsx";
 import * as $LoginIsland from "./islands/LoginIsland.tsx";
 import * as $Main from "./islands/Main.tsx";
+import * as $MainOld from "./islands/MainOld.tsx";
 import * as $TestIsland from "./islands/TestIsland.tsx";
 import * as $UserCheck from "./islands/UserCheck.tsx";
 import * as $UserDisplay from "./islands/UserDisplay.tsx";
@@ -43,6 +44,7 @@ const manifest = {
     "./islands/Interactive.tsx": $Interactive,
     "./islands/LoginIsland.tsx": $LoginIsland,
     "./islands/Main.tsx": $Main,
+    "./islands/MainOld.tsx": $MainOld,
     "./islands/TestIsland.tsx": $TestIsland,
     "./islands/UserCheck.tsx": $UserCheck,
     "./islands/UserDisplay.tsx": $UserDisplay,

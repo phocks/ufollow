@@ -1,9 +1,5 @@
-import Input from "~/components/Input.tsx";
-import Button from "~/components/Button.tsx";
+import Main from "~/islands/Main.tsx";
 
-export default () => (
-  <form action="/login">
-    <Input></Input>
-    <Button>Submit</Button>
-  </form>
-);
+const Index = () => <Main />;
+
+export default Index;
