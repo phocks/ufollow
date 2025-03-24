@@ -19,19 +19,13 @@ const Main = () => {
     console.log(userInput.value);
   });
 
-  username.value = "John Doe";
-  domain.value = "example.com";
-
-  setTimeout(() => {
-    username.value = "Jane Doe";
-  }, 1000);
-
   return (
     <input
-      type="input"
-      // value={userInput.value}
-      onInput={(e) => userInput.value = e.currentTarget.value}
+      type="text"
+      value={userInput}
+      onInput={(event) => userInput.value = event.currentTarget.value}
       placeholder="@user@domain.com"
+      class=""
     />
   );
 };
