@@ -8,8 +8,6 @@ import {
   useSignalEffect,
 } from "@preact/signals";
 
-import Input from "~/components/Input.tsx";
-
 const Main = () => {
   const userInput = useSignal("");
   const username = useSignal("");
@@ -20,13 +18,17 @@ const Main = () => {
   });
 
   return (
-    <input
-      type="text"
-      value={userInput}
-      onInput={(event) => userInput.value = event.currentTarget.value}
-      placeholder="@user@domain.com"
-      class=""
-    />
+    <>
+      <input
+        type="text"
+        value={userInput}
+        onInput={(event) => userInput.value = event.currentTarget.value}
+        placeholder="@user@domain.com"
+        class=""
+      />
+
+      <button type="button" class="btn btn-blue">Lock in</button>
+    </>
   );
 };
 
