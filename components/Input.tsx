@@ -21,7 +21,7 @@ const Input = ({ value }: Props) => {
       <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
         <span
           class="text-gray-600 hover:text-gray-700"
-          tabindex="-1"
+          tabindex={-1}
           aria-hidden="true"
         >
           <span class="sr-only">Go</span>
