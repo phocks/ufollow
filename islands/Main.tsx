@@ -24,8 +24,9 @@ const Main = () => {
     return parsed.domain;
   });
 
-  useSignalEffect(() => {
-  });
+  useSignalEffect(() => {});
+
+  console.log("Main component rendered");
 
   return (
     <>
@@ -34,15 +35,22 @@ const Main = () => {
       </p>
 
       <div class="my-4">
-        <input
-          type="text"
-          value={userInput}
-          onInput={(event) => userInput.value = event.currentTarget.value}
-          placeholder="@user@domain.com"
-          class=""
-        />
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            console.log("Form submitted");
+          }}
+        >
+          <input
+            type="text"
+            value={userInput}
+            onInput={(event) => userInput.value = event.currentTarget.value}
+            placeholder="@user@domain.com"
+            class=""
+          />
 
-        <button type="button" class="btn btn-blue">Continue</button>
+          <button type="submit" class="btn btn-blue">Continue</button>
+        </form>
       </div>
 
       {(username.value && domain.value) &&
