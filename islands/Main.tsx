@@ -1,3 +1,5 @@
+import type { Signal } from "@preact/signals";
+
 import {
   computed,
   effect,
@@ -7,7 +9,29 @@ import {
   useSignal,
   useSignalEffect,
 } from "@preact/signals";
+import { useEffect } from "preact/hooks/src/index.d.ts";
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
+
+const UserInfo = ({
+  username,
+  domain,
+}: {
+  username: Signal<string | null>;
+  domain: Signal<string | null>;
+}) => {
+
+  console.log("UserInfo component rendered");
+  
+  if (!username.value || !domain.value) {
+    return <p>Please enter a valid username and domain.</p>;
+  }
+  
+  return (
+    <p>
+      Your username is {username} and your domain is {domain}.
+    </p>
+  );
+};
 
 const Main = () => {
   const userInput = useSignal("");
@@ -30,7 +54,7 @@ const Main = () => {
 
   return (
     <>
-      <p class="libre-baskerville-regular">
+      <p>
         Please enter your fediverse address...
       </p>
 
@@ -53,12 +77,9 @@ const Main = () => {
         </form>
       </div>
 
-      {(username.value && domain.value) &&
-        (
-          <p class="libre-baskerville-regular">
-            Your username is {username.value} and your domain is {domain.value}.
-          </p>
-        )}
+      <div class="my-4">
+        <UserInfo username={username} domain={domain} />
+      </div>
     </>
   );
 };
