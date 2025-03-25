@@ -25,9 +25,6 @@ const Main = () => {
   });
 
   useSignalEffect(() => {
-    console.log("input:", userInput.value);
-    console.log("username:", username.value);
-    console.log("domain:", domain.value);
   });
 
   return (
@@ -36,15 +33,24 @@ const Main = () => {
         Please enter your fediverse address...
       </p>
 
-      <input
-        type="text"
-        value={userInput}
-        onInput={(event) => userInput.value = event.currentTarget.value}
-        placeholder="@user@domain.com"
-        class=""
-      />
+      <div class="my-4">
+        <input
+          type="text"
+          value={userInput}
+          onInput={(event) => userInput.value = event.currentTarget.value}
+          placeholder="@user@domain.com"
+          class=""
+        />
 
-      <button type="button" class="btn btn-blue">Continue</button>
+        <button type="button" class="btn btn-blue">Continue</button>
+      </div>
+
+      {(username.value && domain.value) &&
+        (
+          <p class="libre-baskerville-regular">
+            Your username is {username.value} and your domain is {domain.value}.
+          </p>
+        )}
     </>
   );
 };
