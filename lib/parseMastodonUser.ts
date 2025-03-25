@@ -46,7 +46,7 @@ export function parseMastodonUser(userInput: string): {
     };
   } catch (error) {
     // If you want to see the error in the console
-    console.error("Failed to parse Mastodon user:", error);
+    // console.error("Failed to parse Mastodon user:", error);
     return null;
   }
 }

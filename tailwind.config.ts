@@ -1,5 +1,6 @@
 import { type Config } from "tailwindcss";
 import tailwindForms from "@tailwindcss/forms";
+import tailwindTypography from "@tailwindcss/typography";
 
 export default {
   darkMode: "media",
@@ -8,5 +9,6 @@ export default {
   ],
   plugins: [
     tailwindForms,
+    tailwindTypography,
   ],
 } satisfies Config;

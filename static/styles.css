@@ -1,24 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  max-width: 600px;
+    max-width: 960px;
 }
 
 a {
-  color: blue;
-  text-decoration: underline;
+    color: blue;
+    text-decoration: underline;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 1em;
+}
+
+.libre-baskerville-regular {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.libre-baskerville-bold {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.libre-baskerville-regular-italic {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-style: italic;
 }
 
 @layer components {
-  .btn {
-    @apply py-2 px-4 border-blue-500 border;
-  }
-  .btn-blue {
-    @apply bg-blue-500 text-white;
-  }
-  .btn-blue:hover {
-    @apply bg-blue-700 border-blue-700;
-  }
+    .btn {
+        @apply py-2 px-4 border-blue-500 border;
+    }
+    .btn-blue {
+        @apply bg-blue-500 text-white;
+    }
+    .btn-blue:hover {
+        @apply bg-blue-700 border-blue-700;
+    }
 }
