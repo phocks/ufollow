@@ -19,13 +19,12 @@ const UserInfo = ({
   username: Signal<string | null>;
   domain: Signal<string | null>;
 }) => {
-
   console.log("UserInfo component rendered");
-  
+
   if (!username.value || !domain.value) {
     return <p>Please enter a valid username and domain.</p>;
   }
-  
+
   return (
     <p>
       Your username is {username} and your domain is {domain}.
@@ -52,6 +51,21 @@ const Main = () => {
 
   console.log("Main component rendered");
 
+  // Handle form submission
+  const handleSubmit = (event: Event) => {
+    event.preventDefault();
+
+    // Get the form and input element
+    const form = event.target as HTMLFormElement;
+    const inputValue = form.querySelector("input")?.value || "";
+
+    // Parse the input value
+    const parsed = parseMastodonUser(inputValue);
+
+    console.log("Form submitted with value:", inputValue);
+    console.log("Parsed data:", parsed);
+  };
+
   return (
     <>
       <p>
@@ -60,10 +74,7 @@ const Main = () => {
 
       <div class="my-4">
         <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            console.log("Form submitted");
-          }}
+          onSubmit={handleSubmit}
         >
           <input
             type="text"
