@@ -17,17 +17,26 @@ const Main = () => {
     console.log(userInput.value);
   });
 
+  console.log("Main component rendered");
+
   return (
     <>
-      <input
-        type="text"
-        value={userInput}
-        onInput={(event) => userInput.value = event.currentTarget.value}
-        placeholder="@user@domain.com"
-        class=""
-      />
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          console.log("Form submitted");
+        }}
+      >
+        <input
+          type="text"
+          value={userInput}
+          onInput={(event) => userInput.value = event.currentTarget.value}
+          placeholder="@user@domain.com"
+          class=""
+        />
 
-      <button type="button" class="btn btn-blue">Lock in</button>
+        <button type="submit" class="btn btn-blue">Lock in</button>
+      </form>
     </>
   );
 };
