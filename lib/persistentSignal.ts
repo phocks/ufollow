@@ -1,6 +1,11 @@
 import { Signal, signal } from "@preact/signals";
+import { IS_BROWSER } from "$fresh/runtime.ts";
 
 export function mite<T>(key: string, defaultValue: T): Signal<T> {
+  if (!IS_BROWSER) {
+    return signal(defaultValue);
+  }
+  
   const stored = localStorage.getItem(key);
   const initial = stored 
     ? (typeof defaultValue === 'string' 
