@@ -38,14 +38,14 @@ baseUrl.subscribe(async (url) => {
   }
 
   {
-    const currentDomain = new URL(url).host;
-    const storageKey = `application:${currentDomain}`;
+    const currentUrl = new URL(url);
+    const storageKey = `application:${currentUrl.host}`;
 
     const cached = localStorage.getItem(storageKey);
     if (cached) {
       application.value = JSON.parse(cached);
     } else {
-      const app = await registerApplication(url);
+      const app = await registerApplication(currentUrl);
       localStorage.setItem(storageKey, JSON.stringify(app));
       application.value = app;
     }

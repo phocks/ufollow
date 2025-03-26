@@ -1,6 +1,6 @@
 import { REDIRECT_URI } from "~/lib/constants.ts";
 
-export type Application = {
+export interface Application {
   id: string;
   name: string;
   website: string;
@@ -57,6 +57,51 @@ export const getClientToken = async (
 
   return token;
 };
+
+// Authenticated user token
+// Obtain the token
+
+// Now that we have an authorization code, let’s obtain an access token that will authenticate our requests as the authorized user. To do so, use POST /oauth/token like before, but pass the authorization code we just obtained:
+
+// curl -X POST \
+// 	-F 'grant_type=authorization_code' \
+// 	-F 'client_id=your_client_id_here' \
+// 	-F 'client_secret=your_client_secret_here' \
+// 	-F 'redirect_uri=urn:ietf:wg:oauth:2.0:oob' \
+// 	-F 'code=user_authzcode_here' \
+// 	https://mastodon.example/oauth/token
+
+// Note the following:
+
+//     We are requesting a grant_type of authorization_code
+//     client_id and client_secret were provided in the response text when you registered your application.
+//     redirect_uri must be one of the URIs defined when registering the application.
+//     The code can only be used once. If you need to obtain a new token, you will need to have the user authorize again by repeating the above Authorize the user step.
+
+export const getAccessToken = async (
+  { baseUrl, clientId, clientSecret, code }: {
+    baseUrl: string;
+    clientId: string;
+    clientSecret: string;
+    code: string;
+  },
+): Promise<Token> => {
+  const token = await fetch(baseUrl + "/oauth/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: REDIRECT_URI,
+      grant_type: "authorization_code",
+      code,
+    }),
+  }).then((res) => res.json());
+  return token;
+};
+
 
 // curl \
 // 	-H 'Authorization: Bearer <access_token>' \
