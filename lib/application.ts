@@ -1,7 +1,18 @@
 import { REDIRECT_URI } from "~/lib/constants.ts";
 
-export const registerApplication = async (baseUrl: string) => {
-  const application = await fetch(baseUrl + "/api/v1/apps", {
+export type Application = {
+  id: string;
+  name: string;
+  website: string;
+  scopes: string[];
+  redirect_uri: string;
+  redirect_uris: string[];
+  client_id: string;
+  client_secret: string;
+};
+
+export const registerApplication = async (url: URL): Promise<Application> => {
+  const application = await fetch(url.origin + "/api/v1/apps", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +39,7 @@ export const getClientToken = async (
   { baseUrl, clientId, clientSecret }: {
     baseUrl: string;
     clientId: string;
-    clientSecret: string;  
+    clientSecret: string;
   },
 ): Promise<Token> => {
   const token = await fetch(baseUrl + "/oauth/token", {
