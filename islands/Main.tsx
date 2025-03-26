@@ -1,6 +1,7 @@
 import type { Signal } from "@preact/signals";
 
 import {
+  batch,
   computed,
   effect,
   signal,
@@ -12,12 +13,26 @@ import {
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
 
 const Main = () => {
-  const username = useSignal("");
-  const domain = useSignal("");
+  const username = useSignal<string | null>(null);
+  const domain = useSignal<string | null>(null);
+
+  const url = computed(() => {
+    if (!username.value || !domain.value) {
+      return null;
+    }
+    
+    const baseUrl = `https://${domain.value}`;
+    return new URL(baseUrl);
+  });
 
   useSignalEffect(() => {
     console.log("Username changed:", username.value);
     console.log("Domain changed:", domain.value);
+    console.log("URL changed:", url.value);
+
+    return () => {
+      console.log("Cleanup effect");
+    };
   });
 
   const handleSubmit = (event: Event) => {
@@ -34,8 +49,10 @@ const Main = () => {
     console.log("Parsed data:", parsed);
 
     // Update the signals
-    username.value = parsed?.username || "";
-    domain.value = parsed?.domain || "";
+    batch(() => {
+      username.value = parsed?.username || "";
+      domain.value = parsed?.domain || "";
+    });
   };
 
   return (
@@ -51,7 +68,6 @@ const Main = () => {
         >
           <input
             type="text"
-            
             placeholder="@user@domain.com"
             class=""
           />
