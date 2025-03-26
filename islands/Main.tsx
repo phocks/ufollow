@@ -1,4 +1,15 @@
 import type { Signal } from "@preact/signals";
+import type { Application } from "~/lib/application.ts";
+import { match, P } from "ts-pattern";
+
+import {
+  accountLookup,
+  getAccountFollowing,
+  getAllFollowing,
+  getClientToken,
+  registerApplication,
+  verifyCredentials,
+} from "~/lib/application.ts";
 
 import {
   batch,
@@ -15,24 +26,15 @@ import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
 const Main = () => {
   const username = useSignal<string | null>(null);
   const domain = useSignal<string | null>(null);
+  const application = useSignal<Application | null>(null);
 
   const url = computed(() => {
     if (!username.value || !domain.value) {
       return null;
     }
-    
+
     const baseUrl = `https://${domain.value}`;
     return new URL(baseUrl);
-  });
-
-  useSignalEffect(() => {
-    console.log("Username changed:", username.value);
-    console.log("Domain changed:", domain.value);
-    console.log("URL changed:", url.value);
-
-    return () => {
-      console.log("Cleanup effect");
-    };
   });
 
   const handleSubmit = (event: Event) => {
@@ -55,6 +57,34 @@ const Main = () => {
     });
   };
 
+  useSignalEffect(() => {
+    if (!url.value || !username.value) return;
+
+    console.log("URL", url.value);
+
+    const applicationStorageKey = `application:${url.value.host}`;
+    const cachedApplication = localStorage.getItem(applicationStorageKey);
+
+    match(cachedApplication)
+      .with(null, async () => {
+        if (!url.value) return null;
+        const app = await registerApplication(url.value);
+
+        localStorage.setItem(applicationStorageKey, JSON.stringify(app));
+
+        application.value = app;
+      })
+      .with(P.string, (cached) => {
+        const app = JSON.parse(cached);
+        application.value = app;
+      })
+      .exhaustive();
+  });
+
+  useSignalEffect(() => {
+    console.log("Application", application.value);
+  });
+
   return (
     <>
       <p>
@@ -74,6 +104,11 @@ const Main = () => {
           <button type="submit" class="btn">Continue</button>
         </form>
       </div>
+
+      {url.value && (
+        <div class="mt-4">
+        </div>
+      )}
     </>
   );
 };
