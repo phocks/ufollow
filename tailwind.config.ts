@@ -7,6 +7,9 @@ export default {
   content: [
     "{routes,islands,components}/**/*.{ts,tsx,js,jsx}",
   ],
+  corePlugins: {
+    preflight: true,
+  },
   plugins: [
     tailwindForms,
     tailwindTypography,
