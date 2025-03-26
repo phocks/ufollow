@@ -9,43 +9,10 @@ import {
   useSignal,
   useSignalEffect,
 } from "@preact/signals";
-import { useEffect } from "preact/hooks/src/index.d.ts";
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
-
-const UserInfo = ({
-  username,
-  domain,
-}: {
-  username: Signal<string | null>;
-  domain: Signal<string | null>;
-}) => {
-  console.log("UserInfo component rendered");
-
-  if (!username.value || !domain.value) {
-    return <p>Please enter a valid username and domain.</p>;
-  }
-
-  return (
-    <p>
-      Your username is {username} and your domain is {domain}.
-    </p>
-  );
-};
 
 const Main = () => {
   const userInput = useSignal("");
-
-  const username = useComputed(() => {
-    const parsed = parseMastodonUser(userInput.value);
-    if (!parsed) return null;
-    return parsed.username;
-  });
-
-  const domain = useComputed(() => {
-    const parsed = parseMastodonUser(userInput.value);
-    if (!parsed) return null;
-    return parsed.domain;
-  });
 
   useSignalEffect(() => {});
 
@@ -75,6 +42,7 @@ const Main = () => {
       <div class="my-4">
         <form
           onSubmit={handleSubmit}
+          class="flex gap-2"
         >
           <input
             type="text"
@@ -83,13 +51,8 @@ const Main = () => {
             placeholder="@user@domain.com"
             class=""
           />
-
-          <button type="submit" class="btn btn-blue">Continue</button>
+          <button type="submit" class="btn">Continue</button>
         </form>
-      </div>
-
-      <div class="my-4">
-        <UserInfo username={username} domain={domain} />
       </div>
     </>
   );
