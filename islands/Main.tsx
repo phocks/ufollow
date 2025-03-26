@@ -12,13 +12,14 @@ import {
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
 
 const Main = () => {
-  const userInput = useSignal("");
+  const username = useSignal("");
+  const domain = useSignal("");
 
-  useSignalEffect(() => {});
+  useSignalEffect(() => {
+    console.log("Username changed:", username.value);
+    console.log("Domain changed:", domain.value);
+  });
 
-  console.log("Main component rendered");
-
-  // Handle form submission
   const handleSubmit = (event: Event) => {
     event.preventDefault();
 
@@ -31,6 +32,10 @@ const Main = () => {
 
     console.log("Form submitted with value:", inputValue);
     console.log("Parsed data:", parsed);
+
+    // Update the signals
+    username.value = parsed?.username || "";
+    domain.value = parsed?.domain || "";
   };
 
   return (
@@ -46,8 +51,7 @@ const Main = () => {
         >
           <input
             type="text"
-            value={userInput}
-            onInput={(event) => userInput.value = event.currentTarget.value}
+            
             placeholder="@user@domain.com"
             class=""
           />
