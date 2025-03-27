@@ -25,8 +25,6 @@ import {
 } from "@preact/signals";
 import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
 
-
-
 interface AccessToken {
   access_token: string;
   created_at: number;
@@ -74,6 +72,9 @@ const Main = () => {
 
     console.log("Form submitted with value:", inputValue);
     console.log("Parsed data:", parsed);
+
+    // Store in localStorage
+    localStorage.setItem("user-info", JSON.stringify(parsed));
 
     // Update the signals
     batch(() => {
@@ -131,11 +132,31 @@ const Main = () => {
   });
 
   useSignalEffect(() => {
-    console.log("Application", application.value);
-  });
+    untracked(() => {
+      // Check local storage for saved user data
+      const userInfo = localStorage.getItem("user-info");
 
-  useSignalEffect(() => {
-    console.log("authHref", authHref.value);
+      if (userInfo) {
+        const parsed = JSON.parse(userInfo);
+        console.log("Parsed user info from local storage:", parsed);
+
+        batch(() => {
+          username.value = parsed.username;
+          domain.value = parsed.domain;
+        });
+      }
+
+      // Check local storage for saved access token
+      const storageKey = `access-token:${username.value}@${domain.value}`;
+      const cachedToken = localStorage.getItem(storageKey);
+
+      if (cachedToken) {
+        const token = JSON.parse(cachedToken);
+        console.log("Cached access token:", token);
+
+        accessToken.value = token;
+      }
+    });
   });
 
   return (
