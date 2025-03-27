@@ -1,6 +1,7 @@
 import type { Signal } from "@preact/signals";
 import type { Application } from "~/lib/application.ts";
 import { match, P } from "ts-pattern";
+import { createRestAPIClient } from "masto";
 
 import {
   accountLookup,
@@ -37,6 +38,7 @@ const Main = () => {
   const domain = useSignal<string | null>(null);
   const application = useSignal<Application | null>(null);
   const accessToken = useSignal<AccessToken | null>(null);
+  const avatarUrl = useSignal<string | null>(null);
 
   const url = computed(() => {
     if (!username.value || !domain.value) {
@@ -61,7 +63,8 @@ const Main = () => {
   });
 
   const isAuthed = computed(() => {
-    return !!accessToken.value;
+    if (!accessToken.value) return false;
+    return true;
   });
 
   const handleSubmit = (event: Event) => {
@@ -73,9 +76,6 @@ const Main = () => {
 
     // Parse the input value
     const parsed = parseMastodonUser(inputValue);
-
-    console.log("Form submitted with value:", inputValue);
-    console.log("Parsed data:", parsed);
 
     // Store in localStorage
     localStorage.setItem("user-info", JSON.stringify(parsed));
@@ -107,14 +107,11 @@ const Main = () => {
     const storageKey = `access-token:${username.value}@${url.value.host}`;
     localStorage.setItem(storageKey, JSON.stringify(token));
 
-    console.log("Access token:", token);
     accessToken.value = token;
   };
 
   useSignalEffect(() => {
     if (!url.value || !username.value) return;
-
-    console.log("URL", url.value);
 
     const applicationStorageKey = `application:${url.value.host}`;
     const cachedApplication = localStorage.getItem(applicationStorageKey);
@@ -142,7 +139,6 @@ const Main = () => {
 
       if (userInfo) {
         const parsed = JSON.parse(userInfo);
-        console.log("Parsed user info from local storage:", parsed);
 
         batch(() => {
           username.value = parsed.username;
@@ -156,18 +152,49 @@ const Main = () => {
 
       if (cachedToken) {
         const token = JSON.parse(cachedToken);
-        console.log("Cached access token:", token);
-
         accessToken.value = token;
       }
     });
   });
 
-  if (isAuthed) {
+  useSignalEffect(() => {
+    if (!accessToken.value) return;
+
+    accessTokenAction();
+  });
+
+  const accessTokenAction = async () => {
+    const masto = createRestAPIClient({
+      url: url.value?.origin || "",
+      accessToken: accessToken.value?.access_token || "",
+    });
+
+    console.log("Masto client created:", masto);
+
+    const result = await masto.v1.accounts.verifyCredentials();
+    console.log("Result:", result);
+    console.log("Result username:", result.username);
+    console.log("Result display name:", result.displayName);
+    console.log("Result url:", result.url);
+
+    avatarUrl.value = result.avatar;
+
+    // const status = await masto.v1.statuses.create({
+    //   status: "Hello from #mastojs!",
+    // });
+
+    // console.log(status.url);
+  };
+
+  if (isAuthed.value) {
     return (
       <>
         <p>
           You are now authenticated!
+        </p>
+
+        <p>
+          <img src={avatarUrl.value || ""} alt="Avatar" width={128} />
         </p>
       </>
     );
