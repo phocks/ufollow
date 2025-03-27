@@ -3,6 +3,14 @@ import type { Application } from "~/lib/application.ts";
 import { match, P } from "ts-pattern";
 import { createRestAPIClient } from "masto";
 
+type AuthState =
+  | { status: "idle" }
+  | { status: "loading_user_input" }
+  | { status: "awaiting_authorization"; username: string; domain: string }
+  | { status: "authorizing_code" }
+  | { status: "authenticated"; username: string; avatarUrl: string }
+  | { status: "error"; message: string };
+
 import {
   accountLookup,
   buildAuthorizationUrl,
@@ -38,7 +46,6 @@ const Main = () => {
   const domain = useSignal<string | null>(null);
   const application = useSignal<Application | null>(null);
   const accessToken = useSignal<AccessToken | null>(null);
-  const avatarUrl = useSignal<string | null>(null);
 
   const url = computed(() => {
     if (!username.value || !domain.value) {
@@ -132,6 +139,7 @@ const Main = () => {
       .exhaustive();
   });
 
+  // Initialisation
   useSignalEffect(() => {
     untracked(() => {
       // Check local storage for saved user data
@@ -159,7 +167,6 @@ const Main = () => {
 
   useSignalEffect(() => {
     if (!accessToken.value) return;
-
     accessTokenAction();
   });
 
@@ -173,17 +180,35 @@ const Main = () => {
 
     const result = await masto.v1.accounts.verifyCredentials();
     console.log("Result:", result);
-    console.log("Result username:", result.username);
-    console.log("Result display name:", result.displayName);
-    console.log("Result url:", result.url);
 
-    avatarUrl.value = result.avatar;
+    // Get accounts the user is following
+    const followingPaginator = masto.v1.accounts.$select(result.id).following.list({
+      limit: 80,
+    });
 
-    // const status = await masto.v1.statuses.create({
-    //   status: "Hello from #mastojs!",
-    // });
+    console.log("Following paginator:", followingPaginator);
+    // console.log("Following:", await following.next());
+    // console.log("Following:", await following.next());
 
-    // console.log(status.url);
+    try {
+      const allFollowing = [];
+      
+      // Process page by page with for-await-of
+      for await (const accounts of followingPaginator) {
+        console.log(`Got page with ${accounts.length} accounts`);
+        allFollowing.push(...accounts);
+      }
+      
+      console.log(`You follow ${allFollowing.length} accounts in total`);
+      
+    } catch (error) {
+      console.error("Error fetching following:", error);
+    }
+
+    const relationships = await masto.v1.accounts.relationships.fetch({
+      id: ["112936018616709003"],
+    });
+    console.log("Relationships:", relationships);
   };
 
   if (isAuthed.value) {
@@ -191,10 +216,6 @@ const Main = () => {
       <>
         <p>
           You are now authenticated!
-        </p>
-
-        <p>
-          <img src={avatarUrl.value || ""} alt="Avatar" width={128} />
         </p>
       </>
     );
