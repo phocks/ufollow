@@ -60,6 +60,10 @@ const Main = () => {
     return authUrl;
   });
 
+  const isAuthed = computed(() => {
+    return !!accessToken.value;
+  });
+
   const handleSubmit = (event: Event) => {
     event.preventDefault();
 
@@ -158,6 +162,16 @@ const Main = () => {
       }
     });
   });
+
+  if (isAuthed) {
+    return (
+      <>
+        <p>
+          You are now authenticated!
+        </p>
+      </>
+    );
+  }
 
   return (
     <>
