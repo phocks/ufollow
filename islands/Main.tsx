@@ -186,29 +186,34 @@ const Main = () => {
       limit: 80,
     });
 
-    console.log("Following paginator:", followingPaginator);
+    console.log("Following paginator:", await followingPaginator);
+
+
+
+
+
     // console.log("Following:", await following.next());
     // console.log("Following:", await following.next());
 
-    try {
-      const allFollowing = [];
+    // try {
+    //   const allFollowing = [];
       
-      // Process page by page with for-await-of
-      for await (const accounts of followingPaginator) {
-        console.log(`Got page with ${accounts.length} accounts`);
-        allFollowing.push(...accounts);
-      }
+    //   // Process page by page with for-await-of
+    //   for await (const accounts of followingPaginator) {
+    //     console.log(`Got page with ${accounts.length} accounts`);
+    //     allFollowing.push(...accounts);
+    //   }
       
-      console.log(`You follow ${allFollowing.length} accounts in total`);
+    //   console.log(`You follow ${allFollowing.length} accounts in total`);
       
-    } catch (error) {
-      console.error("Error fetching following:", error);
-    }
+    // } catch (error) {
+    //   console.error("Error fetching following:", error);
+    // }
 
-    const relationships = await masto.v1.accounts.relationships.fetch({
-      id: ["112936018616709003"],
-    });
-    console.log("Relationships:", relationships);
+    // const relationships = await masto.v1.accounts.relationships.fetch({
+    //   id: ["112936018616709003"],
+    // });
+    // console.log("Relationships:", relationships);
   };
 
   if (isAuthed.value) {
