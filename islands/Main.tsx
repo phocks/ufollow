@@ -203,6 +203,13 @@ const Main = () => {
     });
     console.log("Relationships:", relationships);
 
+    // Find first account that follows = false
+    const notFollowing = relationships.filter(
+      (account) => !account.followedBy,
+    );
+
+    console.log("First not following:", notFollowing);
+
     // console.log("Following:", await following.next());
     // console.log("Following:", await following.next());
 
@@ -231,7 +238,7 @@ const Main = () => {
     return (
       <>
         <p>
-          You are now authenticated!
+          Authenticated as @{username.value}@{domain.value}
         </p>
       </>
     );
