@@ -178,11 +178,11 @@ const Main = () => {
 
     console.log("Masto client created:", masto);
 
-    const result = await masto.v1.accounts.verifyCredentials();
-    console.log("Result:", result);
+    const userAccount = await masto.v1.accounts.verifyCredentials();
+    console.log("Result:", userAccount);
 
     // Get accounts the user is following
-    const followingPaginator = masto.v1.accounts.$select(result.id).following.list({
+    const followingPaginator = masto.v1.accounts.$select(userAccount.id).following.list({
       limit: 80,
     });
 
