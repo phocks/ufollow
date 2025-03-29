@@ -2,6 +2,7 @@ import type { Signal } from "@preact/signals";
 import type { Application } from "~/lib/application.ts";
 import { match, P } from "ts-pattern";
 import { createRestAPIClient } from "masto";
+import { installIntoGlobal } from "iterator-helpers-polyfill";
 
 type AuthState =
   | { status: "idle" }
@@ -117,6 +118,7 @@ const Main = () => {
     accessToken.value = token;
   };
 
+  // Register application
   useSignalEffect(() => {
     if (!url.value || !username.value) return;
 
@@ -139,7 +141,7 @@ const Main = () => {
       .exhaustive();
   });
 
-  // Initialisation
+  // Initialisation (runs once, checks for access-token)
   useSignalEffect(() => {
     untracked(() => {
       // Check local storage for saved user data
@@ -167,10 +169,10 @@ const Main = () => {
 
   useSignalEffect(() => {
     if (!accessToken.value) return;
-    accessTokenAction();
+    untracked(() => accessTokenEffect());
   });
 
-  const accessTokenAction = async () => {
+  const accessTokenEffect = async () => {
     const masto = createRestAPIClient({
       url: url.value?.origin || "",
       accessToken: accessToken.value?.access_token || "",
@@ -186,26 +188,35 @@ const Main = () => {
       limit: 80,
     });
 
-    console.log("Following paginator:", await followingPaginator);
+    console.log("Following paginator:", followingPaginator);
 
+    const { value: followingFirstPage } = await followingPaginator.next();
+    console.log("Following first page:", followingFirstPage);
 
+    // Check relationships with first accounts
+    const ids = followingFirstPage?.map((account) => account.id);
+    console.log("IDs:", ids);
 
-
+    if (!ids) return;
+    const relationships = await masto.v1.accounts.relationships.fetch({
+      id: ids,
+    });
+    console.log("Relationships:", relationships);
 
     // console.log("Following:", await following.next());
     // console.log("Following:", await following.next());
 
     // try {
     //   const allFollowing = [];
-      
+
     //   // Process page by page with for-await-of
     //   for await (const accounts of followingPaginator) {
     //     console.log(`Got page with ${accounts.length} accounts`);
     //     allFollowing.push(...accounts);
     //   }
-      
+
     //   console.log(`You follow ${allFollowing.length} accounts in total`);
-      
+
     // } catch (error) {
     //   console.error("Error fetching following:", error);
     // }
