@@ -47,6 +47,7 @@ const Main = () => {
   const domain = useSignal<string | null>(null);
   const application = useSignal<Application | null>(null);
   const accessToken = useSignal<AccessToken | null>(null);
+  const usersNotFollowedBy = useSignal<any[]>([]);
 
   const url = computed(() => {
     if (!username.value || !domain.value) {
@@ -184,9 +185,10 @@ const Main = () => {
     console.log("Result:", userAccount);
 
     // Get accounts the user is following
-    const followingPaginator = masto.v1.accounts.$select(userAccount.id).following.list({
-      limit: 80,
-    });
+    const followingPaginator = masto.v1.accounts.$select(userAccount.id)
+      .following.list({
+        limit: 80,
+      });
 
     console.log("Following paginator:", followingPaginator);
 
@@ -207,32 +209,15 @@ const Main = () => {
     const notFollowing = relationships.filter(
       (account) => !account.followedBy,
     );
-
-    console.log("First not following:", notFollowing);
-
-    // console.log("Following:", await following.next());
-    // console.log("Following:", await following.next());
-
-    // try {
-    //   const allFollowing = [];
-
-    //   // Process page by page with for-await-of
-    //   for await (const accounts of followingPaginator) {
-    //     console.log(`Got page with ${accounts.length} accounts`);
-    //     allFollowing.push(...accounts);
-    //   }
-
-    //   console.log(`You follow ${allFollowing.length} accounts in total`);
-
-    // } catch (error) {
-    //   console.error("Error fetching following:", error);
-    // }
-
-    // const relationships = await masto.v1.accounts.relationships.fetch({
-    //   id: ["112936018616709003"],
-    // });
-    // console.log("Relationships:", relationships);
+    usersNotFollowedBy.value = notFollowing;
   };
+
+  useSignalEffect(() => {
+    if (!usersNotFollowedBy.value) return;
+
+    const notFollowing = usersNotFollowedBy.value;
+    console.log("Users not following you:", notFollowing);
+  });
 
   if (isAuthed.value) {
     return (
@@ -240,6 +225,21 @@ const Main = () => {
         <p>
           Authenticated as @{username.value}@{domain.value}
         </p>
+
+        {usersNotFollowedBy.value.length > 0 && (
+          <div class="my-4">
+            <p>
+              Users not following you:
+            </p>
+            <ul>
+              {usersNotFollowedBy.value.map((account) => (
+                <li key={account.id}>
+                 { account.id}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </>
     );
   }
