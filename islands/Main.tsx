@@ -1,7 +1,7 @@
 import type { Signal } from "@preact/signals";
 import type { Application } from "~/lib/application.ts";
 import { match, P } from "ts-pattern";
-import { createRestAPIClient } from "masto";
+import { createRestAPIClient, type mastodon } from "masto";
 
 type AuthState =
   | { status: "idle" }
@@ -47,6 +47,8 @@ const Main = () => {
   const application = useSignal<Application | null>(null);
   const accessToken = useSignal<AccessToken | null>(null);
   const usersNotFollowedBy = useSignal<any[]>([]);
+  const currentDetails = useSignal<mastodon.v1.Account | null>(null);
+  const mastoClient = useSignal<any>(null);
 
   const url = computed(() => {
     if (!username.value || !domain.value) {
@@ -186,6 +188,8 @@ const Main = () => {
 
     console.log("Masto client created:", masto);
 
+    mastoClient.value = masto;
+
     const userAccount = await masto.v1.accounts.verifyCredentials();
     console.log("Result:", userAccount);
 
@@ -215,6 +219,14 @@ const Main = () => {
       (account) => !account.followedBy,
     );
     usersNotFollowedBy.value = notFollowing;
+
+    const details = await masto.v1.accounts.$select(notFollowing[0].id).fetch();
+    console.log("Details:", details);
+
+    currentDetails.value = details;
+
+    // let foo = await masto.v1.accounts.$select(notFollowing[0].id).unfollow();
+    // console.log("Unfollowed:", foo);
   };
 
   useSignalEffect(() => {
@@ -224,20 +236,39 @@ const Main = () => {
     console.log("Users not following you:", notFollowedBy);
   });
 
-  // Lookup user id
-  useSignalEffect(() => {
-    if (!username.value || !domain.value) return;
-
-    const userId = accountLookup(username.value, domain.value);
-    console.log("User ID:", userId);
-  });
-
   if (isAuthed.value) {
     return (
       <>
         <p>
           Authenticated as @{username.value}@{domain.value}
         </p>
+
+        {currentDetails.value && (
+          <div class="my-4">
+            <p>
+              Not followed by: @{currentDetails.value.username}
+            </p>
+            <p>
+              {currentDetails.value.displayName}
+            </p>
+            <p>
+              {currentDetails.value.note}
+            </p>
+          </div>
+        )}
+        <div class="my-4">
+          <button
+            type="button"
+            class="btn"
+            onClick={() => {
+              if (!mastoClient.value) return;
+              mastoClient.value.v1.accounts.$select(currentDetails.value?.id)
+                .unfollow();
+            }}
+          >
+            Unfollow
+          </button>
+        </div>
       </>
     );
   }
