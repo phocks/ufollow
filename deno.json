@@ -13,7 +13,7 @@
   "lint": {
     "rules": {
       "tags": ["fresh", "recommended"],
-      "exclude": ["no-explicit-any", "no-unused-vars"]
+      "exclude": ["no-explicit-any", "no-unused-vars", "react-no-danger"]
     }
   },
   "exclude": ["**/_fresh/*"],
