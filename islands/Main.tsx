@@ -226,7 +226,8 @@ const Main = () => {
           Authenticated as @{username.value}@{domain.value}
         </p>
 
-        {usersNotFollowedBy.value.length > 0 && (
+        {
+          /* {usersNotFollowedBy.value.length > 0 && (
           <div class="my-4">
             <p>
               Users not following you:
@@ -239,7 +240,10 @@ const Main = () => {
               ))}
             </ul>
           </div>
-        )}
+        )} */
+        }
+
+        Users not following you: {usersNotFollowedBy.value.length}
       </>
     );
   }
