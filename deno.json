@@ -26,7 +26,6 @@
     "@yuzu-ui/yuzu-ui": "jsr:@yuzu-ui/yuzu-ui@^0.1.0",
     "await-to-js": "npm:await-to-js@^3.0.0",
     "flyonui": "npm:flyonui@^1.3.0",
-    "iterator-helpers-polyfill": "npm:iterator-helpers-polyfill@^3.0.1",
     "masto": "npm:masto@^6.10.3",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",

@@ -2,7 +2,6 @@ import type { Signal } from "@preact/signals";
 import type { Application } from "~/lib/application.ts";
 import { match, P } from "ts-pattern";
 import { createRestAPIClient } from "masto";
-import { installIntoGlobal } from "iterator-helpers-polyfill";
 
 type AuthState =
   | { status: "idle" }
@@ -74,6 +73,12 @@ const Main = () => {
   const isAuthed = computed(() => {
     if (!accessToken.value) return false;
     return true;
+  });
+
+  const currentUserNotFollowedBy = useComputed(() => {
+    if (!usersNotFollowedBy.value) return null;
+    const notFollowedBy = usersNotFollowedBy.value;
+    return notFollowedBy[0];
   });
 
   const handleSubmit = (event: Event) => {
@@ -215,8 +220,16 @@ const Main = () => {
   useSignalEffect(() => {
     if (!usersNotFollowedBy.value) return;
 
-    const notFollowing = usersNotFollowedBy.value;
-    console.log("Users not following you:", notFollowing);
+    const notFollowedBy = usersNotFollowedBy.value;
+    console.log("Users not following you:", notFollowedBy);
+  });
+
+  // Lookup user id
+  useSignalEffect(() => {
+    if (!username.value || !domain.value) return;
+
+    const userId = accountLookup(username.value, domain.value);
+    console.log("User ID:", userId);
   });
 
   if (isAuthed.value) {
@@ -225,25 +238,6 @@ const Main = () => {
         <p>
           Authenticated as @{username.value}@{domain.value}
         </p>
-
-        {
-          /* {usersNotFollowedBy.value.length > 0 && (
-          <div class="my-4">
-            <p>
-              Users not following you:
-            </p>
-            <ul>
-              {usersNotFollowedBy.value.map((account) => (
-                <li key={account.id}>
-                 { account.id}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )} */
-        }
-
-        Users not following you: {usersNotFollowedBy.value.length}
       </>
     );
   }
