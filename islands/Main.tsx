@@ -2,6 +2,7 @@ import type { Signal } from "@preact/signals";
 import type { Application } from "~/lib/application.ts";
 import { match, P } from "ts-pattern";
 import { createRestAPIClient, type mastodon } from "masto";
+import DOMPurify from "dompurify";
 
 type AuthState =
   | { status: "idle" }
@@ -244,31 +245,40 @@ const Main = () => {
         </p>
 
         {currentDetails.value && (
-          <div class="my-4">
-            <p>
-              Not followed by: @{currentDetails.value.username}
-            </p>
-            <p>
-              {currentDetails.value.displayName}
-            </p>
-            <p>
-              {currentDetails.value.note}
-            </p>
-          </div>
+          <>
+            <div class="my-4">
+              <p>
+                Not followed by: <a href={currentDetails.value.url}>@{currentDetails.value.acct}</a>
+              </p>
+              <p>
+                {currentDetails.value.displayName}
+              </p>
+              <p>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(currentDetails.value.note),
+                  }}
+                />
+              </p>
+            </div>
+
+            <div class="my-4">
+              <button
+                type="button"
+                class="btn"
+                onClick={() => {
+                  if (!mastoClient.value) return;
+                  mastoClient.value.v1.accounts.$select(
+                    currentDetails.value?.id,
+                  )
+                    .unfollow();
+                }}
+              >
+                Unfollow
+              </button>
+            </div>
+          </>
         )}
-        <div class="my-4">
-          <button
-            type="button"
-            class="btn"
-            onClick={() => {
-              if (!mastoClient.value) return;
-              mastoClient.value.v1.accounts.$select(currentDetails.value?.id)
-                .unfollow();
-            }}
-          >
-            Unfollow
-          </button>
-        </div>
       </>
     );
   }
