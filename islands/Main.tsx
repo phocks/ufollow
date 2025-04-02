@@ -4,14 +4,6 @@ import { match, P } from "ts-pattern";
 import { createRestAPIClient, type mastodon } from "masto";
 import DOMPurify from "dompurify";
 
-type AuthState =
-  | { status: "idle" }
-  | { status: "loading_user_input" }
-  | { status: "awaiting_authorization"; username: string; domain: string }
-  | { status: "authorizing_code" }
-  | { status: "authenticated"; username: string; avatarUrl: string }
-  | { status: "error"; message: string };
-
 import {
   accountLookup,
   buildAuthorizationUrl,
@@ -225,9 +217,6 @@ const Main = () => {
     console.log("Details:", details);
 
     currentDetails.value = details;
-
-    // let foo = await masto.v1.accounts.$select(notFollowing[0].id).unfollow();
-    // console.log("Unfollowed:", foo);
   };
 
   useSignalEffect(() => {
@@ -236,6 +225,14 @@ const Main = () => {
     const notFollowedBy = usersNotFollowedBy.value;
     console.log("Users not following you:", notFollowedBy);
   });
+
+  const handleUnfollowButtonClick = async () => {
+    if (!mastoClient.value) return;
+    await mastoClient.value.v1.accounts.$select(
+      currentDetails.value?.id,
+    )
+      .unfollow();
+  };
 
   if (isAuthed.value) {
     return (
@@ -248,7 +245,10 @@ const Main = () => {
           <>
             <div class="my-4">
               <p>
-                Not followed by: <a href={currentDetails.value.url}>@{currentDetails.value.acct}</a>
+                Not followed by:{" "}
+                <a href={currentDetails.value.url}>
+                  @{currentDetails.value.acct}
+                </a>
               </p>
               <p>
                 {currentDetails.value.displayName}
@@ -266,13 +266,7 @@ const Main = () => {
               <button
                 type="button"
                 class="btn"
-                onClick={() => {
-                  if (!mastoClient.value) return;
-                  mastoClient.value.v1.accounts.$select(
-                    currentDetails.value?.id,
-                  )
-                    .unfollow();
-                }}
+                onClick={handleUnfollowButtonClick}
               >
                 Unfollow
               </button>

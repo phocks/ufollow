@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 body {
+    font-family: "Libre Baskerville", serif;
     max-width: 960px;
     color: #222;
 }
@@ -16,7 +17,6 @@ a {
 
 p {
     margin-bottom: 1em;
-    font-family: "Libre Baskerville", serif;
     font-weight: 400;
     font-style: normal;
 }
