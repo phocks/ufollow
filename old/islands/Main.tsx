@@ -1,5 +1,5 @@
 import type { Signal } from "@preact/signals";
-import type { Application } from "~/lib/application.ts";
+import type { Application } from "../lib/application.ts";
 import { match, P } from "ts-pattern";
 import { createRestAPIClient, type mastodon } from "masto";
 import DOMPurify from "dompurify";
@@ -13,7 +13,7 @@ import {
   getClientToken,
   registerApplication,
   verifyCredentials,
-} from "~/lib/application.ts";
+} from "../lib/application.ts";
 
 import {
   batch,
@@ -25,7 +25,7 @@ import {
   useSignal,
   useSignalEffect,
 } from "@preact/signals";
-import { parseMastodonUser } from "~/lib/parseMastodonUser.ts";
+import { parseMastodonUser } from "../lib/parseMastodonUser.ts";
 
 interface AccessToken {
   access_token: string;
