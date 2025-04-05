@@ -5,15 +5,7 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $EnsureApplication from "./islands/EnsureApplication.tsx";
-import * as $InfoLogger from "./islands/InfoLogger.tsx";
-import * as $Interactive from "./islands/Interactive.tsx";
-import * as $LoginIsland from "./islands/LoginIsland.tsx";
 import * as $Main from "./islands/Main.tsx";
-import * as $MainOld from "./islands/MainOld.tsx";
-import * as $TestIsland from "./islands/TestIsland.tsx";
-import * as $UserCheck from "./islands/UserCheck.tsx";
-import * as $UserDisplay from "./islands/UserDisplay.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -23,15 +15,7 @@ const manifest = {
     "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/EnsureApplication.tsx": $EnsureApplication,
-    "./islands/InfoLogger.tsx": $InfoLogger,
-    "./islands/Interactive.tsx": $Interactive,
-    "./islands/LoginIsland.tsx": $LoginIsland,
     "./islands/Main.tsx": $Main,
-    "./islands/MainOld.tsx": $MainOld,
-    "./islands/TestIsland.tsx": $TestIsland,
-    "./islands/UserCheck.tsx": $UserCheck,
-    "./islands/UserDisplay.tsx": $UserDisplay,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
