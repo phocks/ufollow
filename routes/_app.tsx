@@ -9,10 +9,8 @@ export default function App({ Component }: PageProps) {
         <title>ufollow</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body>
-        <div class="m-6">
-          <Component />
-        </div>
+      <body class="m-6">
+        <Component />
       </body>
     </html>
   );

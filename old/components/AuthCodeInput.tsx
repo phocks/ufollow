@@ -1,4 +1,4 @@
-import { REDIRECT_URI } from "../lib/constants.ts";
+import { REDIRECT_URI } from "~/lib/constants.ts";
 import { accessToken, application, domain } from "../signals/auth.ts";
 
 export interface AccessTokenResponse {
