@@ -1,5 +1,12 @@
+import Init from "~/islands/Init.tsx";
+
 const Index = () => {
-  return <div>Hello.</div>;
+  return (
+    <>
+      <Init />
+      <div>Hello.</div>
+    </>
+  );
 };
 
 export default Index;
