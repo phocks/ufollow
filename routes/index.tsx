@@ -1,5 +1,5 @@
-import Main from "~/islands/Main.tsx";
-
-const Index = () => <Main />;
+const Index = () => {
+  return <div>Hello.</div>;
+};
 
 export default Index;
