@@ -1,14 +1,17 @@
-interface Application {
-  id: string;
-  name: string;
-  website: string;
-  scopes: string[];
-  redirect_uris: string[];
-  vapid_key: string;
-  redirect_uri: string;
-  client_id: string;
-  client_secret: string;
-  client_secret_expires_at: number;
-}
+import { z } from "zod";
 
-export default Application;
+export const ApplicationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  website: z.string(),
+  scopes: z.array(z.string()),
+  redirect_uris: z.array(z.string()),
+  vapid_key: z.string(),
+  redirect_uri: z.string(),
+  client_id: z.string(),
+  client_secret: z.string(),
+  client_secret_expires_at: z.number(),
+});
+
+export type Application = z.infer<typeof ApplicationSchema>;
+

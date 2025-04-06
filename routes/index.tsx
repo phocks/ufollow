@@ -1,9 +1,9 @@
-import Init from "~/islands/Init.tsx";
+import IndexRedirect from "../islands/IndexRedirect.tsx";
 
 const Index = () => {
   return (
     <>
-      <Init />
+      <IndexRedirect />
       <div>Hello World!</div>
     </>
   );
