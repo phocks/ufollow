@@ -1,6 +1,6 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
-import { match, P } from "ts-pattern";
+import { match } from "ts-pattern";
 
 const init = () => {
   match(userInfoFromLocalStorage())
@@ -9,6 +9,7 @@ const init = () => {
     })
     .with({ ok: false }, (result) => {
       console.error("Error:", result.error);
+      globalThis.location.href = "/login";
     })
     .exhaustive();
 };
