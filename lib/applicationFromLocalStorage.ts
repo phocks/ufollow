@@ -1,22 +1,6 @@
-import type Application from "~/types/Application.ts";
+import { type Application, ApplicationSchema } from "~/types/Application.ts";
 import type Result from "~/types/Result.ts";
 import safeJsonParse from "~/lib/safeJsonParse.ts";
-
-import { z } from "zod";
-import { untracked, useSignalEffect } from "@preact/signals";
-
-const ApplicationSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  website: z.string(),
-  scopes: z.array(z.string()),
-  redirect_uris: z.array(z.string()),
-  vapid_key: z.string(),
-  redirect_uri: z.string(),
-  client_id: z.string(),
-  client_secret: z.string(),
-  client_secret_expires_at: z.number(),
-});
 
 const applicationFromLocalStorage = (url: string): Result<Application> => {
   const app = localStorage.getItem(`application:${url}`);
@@ -40,14 +24,4 @@ const applicationFromLocalStorage = (url: string): Result<Application> => {
   }
 };
 
-const init = () => {
-  console.log(applicationFromLocalStorage("masto.byrd.ws"));
-};
-
-const Init = () => {
-  useSignalEffect(() => untracked(() => init()));
-
-  return <div class="init"></div>;
-};
-
-export default Init;
+export default applicationFromLocalStorage;
