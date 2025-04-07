@@ -1,5 +1,5 @@
 import type { Signal } from "@preact/signals";
-import type { Application } from "../lib/application.ts";
+import type { Application } from "~/old/lib/application.ts";
 import { match, P } from "ts-pattern";
 import { createRestAPIClient, type mastodon } from "masto";
 import DOMPurify from "dompurify";

@@ -3,7 +3,9 @@ import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
 import { match } from "ts-pattern";
 
 const init = () => {
-  match(userInfoFromLocalStorage())
+  const userInfo = userInfoFromLocalStorage();
+
+  match(userInfo)
     .with({ ok: true }, (result) => {
       console.log("User Info:", result.value);
     })
@@ -16,7 +18,6 @@ const init = () => {
 
 const Index = () => {
   useSignalEffect(() => untracked(() => init()));
-
   return <div class="init"></div>;
 };
 
