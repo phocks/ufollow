@@ -3,6 +3,7 @@ import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
 import { match } from "ts-pattern";
 
 const init = () => {
+  console.log("UserCheck component mounted...");
   const userInfo = userInfoFromLocalStorage();
 
   match(userInfo)
@@ -16,9 +17,9 @@ const init = () => {
     .exhaustive();
 };
 
-const Index = () => {
+const UserCheck = () => {
   useSignalEffect(() => untracked(() => init()));
   return <div class="init"></div>;
 };
 
-export default Index;
+export default UserCheck;
