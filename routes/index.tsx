@@ -1,9 +1,9 @@
-import IndexRedirect from "../islands/IndexRedirect.tsx";
+import UserCheck from "~/islands/UserCheck.tsx";
 
 const Index = () => {
   return (
     <>
-      <IndexRedirect />
+      <UserCheck />
       <div>Hello World!</div>
     </>
   );

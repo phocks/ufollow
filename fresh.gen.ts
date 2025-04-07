@@ -6,7 +6,7 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
-import * as $IndexRedirect from "./islands/IndexRedirect.tsx";
+import * as $UserCheck from "./islands/UserCheck.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -17,7 +17,7 @@ const manifest = {
     "./routes/login.tsx": $login,
   },
   islands: {
-    "./islands/IndexRedirect.tsx": $IndexRedirect,
+    "./islands/UserCheck.tsx": $UserCheck,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
