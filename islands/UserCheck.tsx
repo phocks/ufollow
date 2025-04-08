@@ -1,17 +1,18 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
 import { match } from "ts-pattern";
+import { fold } from "~/types/Result.ts";
 
 const init = () => {
   console.log("UserCheck component mounted...");
   const userInfo = userInfoFromLocalStorage();
 
   match(userInfo)
-    .with({ ok: true }, (result) => {
-      console.log("User Info:", result.value);
+    .with({ ok: true }, ({ value }) => {
+      console.log("User Info:", value);
     })
-    .with({ ok: false }, (result) => {
-      console.error("Error:", result.error);
+    .with({ ok: false }, ({ error }) => {
+      console.error("Error:", error);
       globalThis.location.href = "/login";
     })
     .exhaustive();
