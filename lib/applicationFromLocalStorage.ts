@@ -3,7 +3,7 @@ import type Result from "~/types/Result.ts";
 import safeFromLocalStorage from "~/lib/safeFromLocalStorage.ts";
 
 const applicationFromLocalStorage = (url: string): Result<Application> => {
-  return safeFromLocalStorage(url, ApplicationSchema);
+  return safeFromLocalStorage(`application:${url}`, ApplicationSchema);
 };
 
 export default applicationFromLocalStorage;
