@@ -1,3 +1,3 @@
-export function isEmptyString(str: string) {
+export function isEmptyString(str: string): boolean {
   return str === "";
 }
