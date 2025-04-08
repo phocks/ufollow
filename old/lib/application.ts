@@ -1,4 +1,4 @@
-import { REDIRECT_URI } from "~/lib/constants.ts";
+import { REDIRECT_URI } from "../../lib/constants.ts";
 
 export interface Application {
   id: string;
