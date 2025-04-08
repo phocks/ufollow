@@ -18,13 +18,13 @@ const init = () => {
     })
     .with({ ok: false }, ({ error }) => {
       console.error("Error:", error);
-      globalThis.location.href = "/login";
       return Option.none();
     })
     .exhaustive();
 
   if (Option.isNone(userOption)) {
     console.error("Invalid user info");
+    globalThis.location.href = "/login";
     return;
   }
 
@@ -36,12 +36,10 @@ const init = () => {
 
   const appOption = match(mastodonApp)
     .with({ ok: true }, ({ value }) => {
-      console.log("Mastodon Application:", value);
       return Option.some(value);
     })
     .with({ ok: false }, ({ error }) => {
       console.error("Error:", error);
-      globalThis.location.href = `/create-app?domain=${validUser.domain}`;
       return Option.none();
     })
     .exhaustive();
@@ -49,6 +47,7 @@ const init = () => {
   Option.match(appOption, {
     onNone: () => {
       console.error("Invalid app info");
+      globalThis.location.href = `/create-app?domain=${validUser.domain}`;
     },
     onSome: (validApp) => {
       console.log("Ready to use app:", validApp);
