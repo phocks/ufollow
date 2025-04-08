@@ -1,10 +1,12 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
 import { match } from "ts-pattern";
-import { fold } from "~/types/Result.ts";
 
 const init = () => {
   console.log("UserCheck component mounted...");
+
+  // Check if user info is available in localStorage
+  // If not, redirect to login page
   const userInfo = userInfoFromLocalStorage();
 
   match(userInfo)
@@ -16,6 +18,9 @@ const init = () => {
       globalThis.location.href = "/login";
     })
     .exhaustive();
+
+  // Check if Mastodon API "application" is available in localStorage
+  // const mastodonApp = mastodonAppFromLocalStorage();
 };
 
 const UserCheck = () => {
