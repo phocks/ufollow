@@ -1,5 +1,5 @@
 import { untracked, useSignalEffect } from "@preact/signals";
-import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
+import parseMastodonUser from "~/lib/parseMastodonUser.ts";
 import { match } from "ts-pattern";
 
 const init = () => {
@@ -11,7 +11,8 @@ interface UserLoginProps {
 }
 
 const UserLogin = ({ handle }: UserLoginProps) => {
-  console.log(handle);
+  const mastodonUser = parseMastodonUser(handle);
+  console.log("Parsed Mastodon User:", mastodonUser);
   useSignalEffect(() => untracked(() => init()));
   return <div class="user-login"></div>;
 };
