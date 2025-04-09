@@ -1,6 +1,7 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
-import mastodonAppFromLocalStorage from "~/lib/applicationFromLocalStorage.ts";
+import applicationFromLocalStorage from "~/lib/applicationFromLocalStorage.ts";
+import accessTokenFromLocalStorage from "~/lib/accessTokenFromLocalStorage.ts";
 import { match } from "ts-pattern";
 import { Option } from "effect";
 
@@ -32,8 +33,9 @@ const init = () => {
   const validUser = userOption.value;
 
   // Check if Mastodon API "application" is available in localStorage
-  const mastodonApp = mastodonAppFromLocalStorage(validUser.domain);
+  const mastodonApp = applicationFromLocalStorage(validUser.domain);
 
+  // Probably redundant step here testing Effect library
   const appOption = match(mastodonApp)
     .with({ ok: true }, ({ value }) => {
       return Option.some(value);
@@ -54,6 +56,22 @@ const init = () => {
       // Continue with app initialization...
     },
   });
+
+  // Check if access token is available in localStorage
+  const accessToken = accessTokenFromLocalStorage(
+    `${validUser.username}@${validUser.domain}`,
+  );
+
+  match(accessToken)
+    .with({ ok: true }, ({ value }) => {
+      console.log("Access Token:", value);
+      // Proceed with the application logic
+    })
+    .with({ ok: false }, ({ error }) => {
+      console.error("Error:", error);
+      globalThis.location.href = "/authenticate";
+    })
+    .exhaustive();
 };
 
 const UserCheck = () => {
