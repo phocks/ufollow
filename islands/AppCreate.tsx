@@ -24,6 +24,7 @@ const init = (domain: string) => {
           `application:${domain}`,
           JSON.stringify(application),
         );
+        globalThis.location.href = "/";
         return application;
       },
       onFailure: (error) => {
