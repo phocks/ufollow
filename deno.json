@@ -25,9 +25,9 @@
     "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
     "@yuzu-ui/yuzu-ui": "jsr:@yuzu-ui/yuzu-ui@^0.1.0",
     "await-to-js": "npm:await-to-js@^3.0.0",
-    "dompurify": "npm:dompurify@^3.2.4",
-    "effect": "npm:effect@^3.14.6",
-    "flyonui": "npm:flyonui@^1.3.0",
+    "dompurify": "npm:dompurify@^3.2.5",
+    "effect": "npm:effect@^3.14.7",
+    "flyonui": "npm:flyonui@^1.3.1",
     "masto": "npm:masto@^6.10.3",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",
@@ -37,8 +37,8 @@
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
     "$std/": "https://deno.land/std@0.216.0/",
-    "ts-pattern": "npm:ts-pattern@^5.6.2",
-    "zod": "npm:zod@^3.24.1",
+    "ts-pattern": "npm:ts-pattern@^5.7.0",
+    "zod": "npm:zod@^3.24.2",
     "~/": "./"
   },
   "compilerOptions": {
