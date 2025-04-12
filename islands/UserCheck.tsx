@@ -1,4 +1,4 @@
-import { Effect } from "effect";
+import { Effect, Option } from "effect";
 import { untracked, useSignalEffect } from "@preact/signals";
 import userInfoFromLocalStorage, {
   userInfoFromLocalStorageEffect,
@@ -6,7 +6,7 @@ import userInfoFromLocalStorage, {
 import applicationFromLocalStorage from "~/lib/applicationFromLocalStorage.ts";
 import accessTokenFromLocalStorage from "~/lib/accessTokenFromLocalStorage.ts";
 import { match } from "ts-pattern";
-import { Option } from "effect";
+
 
 const init = () => {
   console.log("UserCheck component mounted...");
@@ -33,11 +33,11 @@ const init = () => {
   }
 
   // Try an Effect to get user info from localStorage
-  const success = Effect.runSyncExit(
+  const result = Effect.runSyncExit(
     userInfoFromLocalStorageEffect(),
   );
 
-  const program1 = Effect.match(success, {
+  const program1 = Effect.match(result, {
     onFailure: (error) => `failure: ${error.message}`,
     onSuccess: (value) => value,
   });
