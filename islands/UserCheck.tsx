@@ -1,5 +1,8 @@
+import { Effect } from "effect";
 import { untracked, useSignalEffect } from "@preact/signals";
-import userInfoFromLocalStorage from "~/lib/userInfoFromLocalStorage.ts";
+import userInfoFromLocalStorage, {
+  userInfoFromLocalStorageEffect,
+} from "~/lib/userInfoFromLocalStorage.ts";
 import applicationFromLocalStorage from "~/lib/applicationFromLocalStorage.ts";
 import accessTokenFromLocalStorage from "~/lib/accessTokenFromLocalStorage.ts";
 import { match } from "ts-pattern";
@@ -28,6 +31,19 @@ const init = () => {
     globalThis.location.href = "/login";
     return;
   }
+
+  // Try an Effect to get user info from localStorage
+  const success = Effect.runSyncExit(
+    userInfoFromLocalStorageEffect(),
+  );
+
+  const program1 = Effect.match(success, {
+    onFailure: (error) => `failure: ${error.message}`,
+    onSuccess: (value) => value,
+  });
+
+  const x = Effect.runSync(program1);
+  console.log("Effect result:", x);
 
   // Get the value - TypeScript knows this is safe after the check
   const validUser = userOption.value;
