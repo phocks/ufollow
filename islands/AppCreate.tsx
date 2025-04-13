@@ -1,7 +1,7 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import parseMastodonUser from "~/lib/parseMastodonUser.ts";
 import { registerApplication } from "~/lib/registerApplication.ts";
-import applicationFromLocalStorage from "~/lib/applicationFromLocalStorage.ts";
+import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
 import { match } from "ts-pattern";
 import { Effect } from "effect";
 
