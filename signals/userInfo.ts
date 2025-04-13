@@ -12,11 +12,9 @@ function getDefaultUserInfo() {
   }
 }
 
-function setUserInfoInLocalStorage(userInfo: any) {
+const debouncedSetUserInfo = debounce((userInfo: any) => {
   localStorage.setItem("user-info", JSON.stringify(userInfo.value));
-}
-
-const debouncedSetUserInfo = debounce(setUserInfoInLocalStorage, 500);
+}, 500);
 
 const userInfo = signal(getDefaultUserInfo());
 
