@@ -20,6 +20,7 @@
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "@emotion/css": "npm:@emotion/css@^11.13.5",
+    "@std/async": "jsr:@std/async@^1.0.12",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@^0.5.10",
     "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
     "@yuzu-ui/yuzu-ui": "jsr:@yuzu-ui/yuzu-ui@^0.1.0",
