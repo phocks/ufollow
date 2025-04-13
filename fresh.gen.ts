@@ -9,7 +9,6 @@ import * as $create_app from "./routes/create-app.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
 import * as $AppCreate from "./islands/AppCreate.tsx";
-import * as $EffectRunner from "./islands/EffectRunner.tsx";
 import * as $UserCheck from "./islands/UserCheck.tsx";
 import * as $UserLogin from "./islands/UserLogin.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -25,7 +24,6 @@ const manifest = {
   },
   islands: {
     "./islands/AppCreate.tsx": $AppCreate,
-    "./islands/EffectRunner.tsx": $EffectRunner,
     "./islands/UserCheck.tsx": $UserCheck,
     "./islands/UserLogin.tsx": $UserLogin,
   },

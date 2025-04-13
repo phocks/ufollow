@@ -24,6 +24,7 @@ import {
   useSignal,
   useSignalEffect,
 } from "@preact/signals";
+
 import { parseMastodonUser } from "../../lib/parseMastodonUser.ts";
 
 interface AccessToken {

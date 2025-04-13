@@ -6,10 +6,12 @@ import userInfoFromLocalStorage, {
 import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
 import accessTokenFromLocalStorage from "../lib/localStorage/accessTokenFromLocalStorage.ts";
 import { match } from "ts-pattern";
-
+import userInfoSignal from "~/signals/userInfo.ts";
 
 const init = () => {
   console.log("UserCheck component mounted...");
+
+  console.log("user info signal", userInfoSignal.value);
 
   // Check if user info is available in localStorage
   // If not, redirect to login page

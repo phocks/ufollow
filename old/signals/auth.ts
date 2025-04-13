@@ -1,5 +1,5 @@
 import { computed, effect, signal } from "@preact/signals";
-import { mite } from "~/lib/persistentSignal.ts";
+import { mite } from "~/old/lib/persistentSignal.ts";
 import { registerApplication } from "../lib/application.ts";
 import { AccessTokenResponse } from "../components/AuthCodeInput.tsx";
 
