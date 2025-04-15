@@ -1,8 +1,8 @@
 import { type Application, ApplicationSchema } from "~/types/Application.ts";
-import type Result from "~/types/Result.ts";
+import { err, ok, Result } from "neverthrow";
 import safeFromLocalStorage from "./safeFromLocalStorage.ts";
 
-const applicationFromLocalStorage = (url: string): Result<Application> => {
+const applicationFromLocalStorage = (url: string) => {
   return safeFromLocalStorage(`application:${url}`, ApplicationSchema);
 };
 

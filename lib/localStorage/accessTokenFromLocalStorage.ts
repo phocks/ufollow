@@ -1,8 +1,8 @@
 import { type AccessToken, AccessTokenSchema } from "~/types/AccessToken.ts";
-import type Result from "~/types/Result.ts";
+import { err, ok, Result } from "neverthrow";
 import safeFromLocalStorage from "./safeFromLocalStorage.ts";
 
-const accessTokenFromLocalStorage = (handle: string): Result<AccessToken> => {
+const accessTokenFromLocalStorage = (handle: string) => {
   return safeFromLocalStorage(`access-token:${handle}`, AccessTokenSchema);
 };
 

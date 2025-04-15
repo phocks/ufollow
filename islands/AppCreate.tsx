@@ -1,8 +1,6 @@
 import { untracked, useSignalEffect } from "@preact/signals";
-import parseMastodonUser from "~/lib/parseMastodonUser.ts";
 import { registerApplication } from "~/lib/registerApplication.ts";
 import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
-import { match } from "ts-pattern";
 import { Effect } from "effect";
 
 const init = (domain: string) => {
@@ -10,7 +8,7 @@ const init = (domain: string) => {
 
   // Check if the application is already in local storage
   const appInLocalStorage = applicationFromLocalStorage(domain);
-  if (appInLocalStorage.ok) {
+  if (appInLocalStorage.isErr()) {
     console.log("Application found in local storage. Nothing to do.");
     return;
   }
