@@ -7,7 +7,7 @@ const init = () => {
   const userInfoResult = userInfoFromLocalStorage();
 
   if (userInfoResult.isErr()) {
-    console.error("Error retrieving user info:", userInfoResult.error);
+    console.log("Not in local storage:", userInfoResult.error);
     globalThis.location.href = "/login";
     return;
   }
@@ -19,7 +19,7 @@ const init = () => {
   const mastodonAppResult = applicationFromLocalStorage(userInfo.domain);
 
   if (mastodonAppResult.isErr()) {
-    console.error(
+    console.log(
       "Error retrieving application info:",
       mastodonAppResult.error,
     );
@@ -36,7 +36,7 @@ const init = () => {
   );
 
   if (accessTokenResult.isErr()) {
-    console.error("Error retrieving access token:", accessTokenResult.error);
+    console.log("Error retrieving access token:", accessTokenResult.error);
     globalThis.location.href = "/authenticate";
     return;
   }

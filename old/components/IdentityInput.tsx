@@ -12,7 +12,7 @@ const IdentityInput = () => {
     const [err, url] = tryFn(() => urlSchema.parse("https://" + domain.value));
 
     if (err) {
-      console.error("Invalid URL:", err);
+      console.log("Invalid URL:", err);
       return;
     }
 

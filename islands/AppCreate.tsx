@@ -8,7 +8,8 @@ const init = (domain: string) => {
 
   // Check if the application is already in local storage
   const appInLocalStorage = applicationFromLocalStorage(domain);
-  if (appInLocalStorage.isErr()) {
+
+  if (appInLocalStorage.isOk()) {
     console.log("Application found in local storage. Nothing to do.");
     return;
   }
@@ -26,7 +27,7 @@ const init = (domain: string) => {
         return application;
       },
       onFailure: (error) => {
-        console.error("Registration failed:", error);
+        console.log("Registration failed:", error);
       },
     }),
   );
@@ -37,6 +38,7 @@ interface AppCreateProps {
 }
 
 const AppCreate = ({ domain }: AppCreateProps) => {
+  console.log(domain);
   useSignalEffect(() => untracked(() => init(domain)));
   return <div class="app-create"></div>;
 };

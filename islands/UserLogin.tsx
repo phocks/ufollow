@@ -16,7 +16,7 @@ const init = (handle: string) => {
       globalThis.location.href = "/";
     })
     .with({ ok: false }, ({ error }) => {
-      console.error("Failed to parse Mastodon user:", mastodonUser);
+      console.log("Failed to parse Mastodon user:", mastodonUser);
     })
     .exhaustive();
 };

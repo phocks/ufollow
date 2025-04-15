@@ -52,7 +52,7 @@ const IdentityInput = () => {
     console.log("Auth code:", authCode);
 
     if (!application.value) {
-      console.error("Application not set");
+      console.log("Application not set");
       return;
     }
 
