@@ -2,10 +2,11 @@ import { Effect, Option } from "effect";
 import { untracked, useSignalEffect } from "@preact/signals";
 import userInfoFromLocalStorage, {
   userInfoFromLocalStorageEffect,
-} from "../lib/localStorage/userInfoFromLocalStorage.ts";
-import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
-import accessTokenFromLocalStorage from "../lib/localStorage/accessTokenFromLocalStorage.ts";
+} from "~/lib/localStorage/userInfoFromLocalStorage.ts";
+import applicationFromLocalStorage from "~/lib/localStorage/applicationFromLocalStorage.ts";
+import accessTokenFromLocalStorage from "~/lib/localStorage/accessTokenFromLocalStorage.ts";
 import { match } from "ts-pattern";
+import userInfoSignal from "../signals/userInfo.ts";
 
 const init = () => {
   // Check if user info is available in localStorage
