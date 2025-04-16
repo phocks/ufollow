@@ -8,8 +8,8 @@ import * as $auth from "./routes/auth.tsx";
 import * as $create_app from "./routes/create-app.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
+import * as $AccessTokenCreate from "./islands/AccessTokenCreate.tsx";
 import * as $AppCreate from "./islands/AppCreate.tsx";
-import * as $AuthCodeCreate from "./islands/AuthCodeCreate.tsx";
 import * as $UserCheck from "./islands/UserCheck.tsx";
 import * as $UserLogin from "./islands/UserLogin.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -24,8 +24,8 @@ const manifest = {
     "./routes/login.tsx": $login,
   },
   islands: {
+    "./islands/AccessTokenCreate.tsx": $AccessTokenCreate,
     "./islands/AppCreate.tsx": $AppCreate,
-    "./islands/AuthCodeCreate.tsx": $AuthCodeCreate,
     "./islands/UserCheck.tsx": $UserCheck,
     "./islands/UserLogin.tsx": $UserLogin,
   },

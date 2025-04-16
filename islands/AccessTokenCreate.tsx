@@ -1,10 +1,13 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import { registerApplication } from "~/lib/registerApplication.ts";
 import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
-import { buildAuthorizationUrl } from "~/lib/buildAuthorizationUrl.ts";
 
-const init = (authCode: string) => {
+const init = (authCode: string, domain: string) => {
   console.log("AuthCodeCreate component mounted...");
+
+  const x = applicationFromLocalStorage(domain);
+
+  console.log("x", x);
 
   // // Check if the application is already in local storage
   // const appInLocalStorage = applicationFromLocalStorage(domain);
@@ -35,11 +38,10 @@ const init = (authCode: string) => {
 
 interface Props {
   authCode: string;
+  domain: string;
 }
 
-const AuthCodeCreate = ({ authCode }: Props) => {
-  useSignalEffect(() => untracked(() => init(authCode)));
+export default function AccessTokenCreate({ authCode, domain }: Props) {
+  useSignalEffect(() => untracked(() => init(authCode, domain)));
   return <div class="auth-code-create"></div>;
-};
-
-export default AuthCodeCreate;
+}

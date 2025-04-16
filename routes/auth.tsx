@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import AuthCodeCreate from "~/islands/AuthCodeCreate.tsx";
+import AccessTokenCreate from "~/islands/AccessTokenCreate.tsx";
 import { buildAuthorizationUrl } from "~/lib/buildAuthorizationUrl.ts";
 
 interface Data {
@@ -21,7 +21,7 @@ export const handler: Handlers<Data> = {
 const Authenticate = ({ data }: PageProps<Data>) => {
   const { authCode, domain, clientId } = data;
 
-  if (authCode === "") {
+  if (authCode === "" && domain !== "" && clientId !== "") {
     return (
       <div>
         <p>Please authenticate to continue.</p>
@@ -38,18 +38,34 @@ const Authenticate = ({ data }: PageProps<Data>) => {
         <div class="my-4">
           <form class="flex gap-2">
             <input
+              name="auth-code"
               type="text"
               placeholder="<authorization_code>"
               class=""
             />
+            <input type="hidden" name="domain" value={domain} />
             <button type="submit" class="btn">Auth</button>
           </form>
         </div>
       </div>
     );
-  } else {
-    return <AuthCodeCreate authCode={authCode} />;
   }
+
+  if (authCode !== "" && domain !== "") {
+    return (
+      <>
+        <p>Saving access token...</p>
+        <AccessTokenCreate authCode={authCode} domain={domain} />
+      </>
+    );
+  }
+
+  return (
+    <div>
+      <p>Invalid authentication state.</p>
+      <a href="/">Go back</a>
+    </div>
+  );
 };
 
 export default Authenticate;
