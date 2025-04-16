@@ -37,7 +37,8 @@ const init = () => {
 
   if (accessTokenResult.isErr()) {
     console.log("Error retrieving access token:", accessTokenResult.error);
-    globalThis.location.href = "/authenticate";
+    globalThis.location.href =
+      `/auth?client-id=${mastodonApp.client_id}&domain=${userInfo.domain}`;
     return;
   }
 
