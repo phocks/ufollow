@@ -2,14 +2,16 @@ import type { AccessToken } from "~/types/AccessToken.ts";
 import { REDIRECT_URI } from "~/lib/constants.ts";
 
 export const getAccessToken = async (
-  { baseUrl, clientId, clientSecret, code }: {
-    baseUrl: string;
+  { domain, clientId, clientSecret, code }: {
+    domain: string;
     clientId: string;
     clientSecret: string;
     code: string;
   },
 ): Promise<AccessToken> => {
-  const token = await fetch(baseUrl + "/oauth/token", {
+  const baseUrl = new URL(`https://${domain}/`);
+
+  const token = await fetch(`${baseUrl.origin}/oauth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,5 +24,10 @@ export const getAccessToken = async (
       code,
     }),
   }).then((res) => res.json());
+
+  if (token.error) {
+    throw new Error(token.error_description);
+  }
+  
   return token;
 };

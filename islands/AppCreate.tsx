@@ -3,6 +3,10 @@ import { registerApplication } from "~/lib/registerApplication.ts";
 import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
 import { Effect } from "effect";
 
+function redirectToHome() {
+  globalThis.location.href = "/";
+}
+
 const init = (domain: string) => {
   console.log("AppCreate component mounted...");
 
@@ -11,6 +15,7 @@ const init = (domain: string) => {
 
   if (appInLocalStorage.isOk()) {
     console.log("Application found in local storage. Nothing to do.");
+    redirectToHome();
     return;
   }
 
@@ -23,7 +28,7 @@ const init = (domain: string) => {
           `application:${domain}`,
           JSON.stringify(application),
         );
-        globalThis.location.href = "/";
+        redirectToHome();
         return application;
       },
       onFailure: (error) => {
