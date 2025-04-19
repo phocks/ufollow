@@ -1,10 +1,9 @@
-import UserCheck from "~/islands/UserCheck.tsx";
+import LoginLogout from "~/islands/LoginLogout.tsx";
 
 const Index = () => {
   return (
     <>
-      <UserCheck />
-      <div>Hello World!</div>
+      <LoginLogout />
     </>
   );
 };

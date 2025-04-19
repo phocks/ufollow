@@ -10,6 +10,7 @@ import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
 import * as $AccessTokenCreate from "./islands/AccessTokenCreate.tsx";
 import * as $AppCreate from "./islands/AppCreate.tsx";
+import * as $LoginLogout from "./islands/LoginLogout.tsx";
 import * as $UserCheck from "./islands/UserCheck.tsx";
 import * as $UserLogin from "./islands/UserLogin.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -26,6 +27,7 @@ const manifest = {
   islands: {
     "./islands/AccessTokenCreate.tsx": $AccessTokenCreate,
     "./islands/AppCreate.tsx": $AppCreate,
+    "./islands/LoginLogout.tsx": $LoginLogout,
     "./islands/UserCheck.tsx": $UserCheck,
     "./islands/UserLogin.tsx": $UserLogin,
   },
