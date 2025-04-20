@@ -3,7 +3,7 @@ import LoginLogout from "~/islands/LoginLogout.tsx";
 const Index = () => {
   return (
     <>
-      <LoginLogout />
+      <p>Welcome...</p>
     </>
   );
 };
