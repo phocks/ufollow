@@ -6,7 +6,9 @@ import LoginLogout from "../islands/LoginLogout.tsx";
 const Layout = ({ Component, state }: PageProps) => {
   return (
     <div class="layout">
-      <LoginLogout />
+      <div class="navigation">
+        <LoginLogout />
+      </div>
       <Component />
     </div>
   );
