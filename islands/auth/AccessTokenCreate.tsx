@@ -1,7 +1,7 @@
 import { untracked, useSignalEffect } from "@preact/signals";
-import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
+import applicationFromLocalStorage from "~/lib/localStorage/applicationFromLocalStorage.ts";
 import accessTokenFromLocalStorage from "~/lib/localStorage/accessTokenFromLocalStorage.ts";
-import { getAccessToken } from "../lib/getAccessToken.ts";
+import { getAccessToken } from "~/lib/getAccessToken.ts";
 import userInfoFromLocalStorage from "~/lib/localStorage/userInfoFromLocalStorage.ts";
 
 function redirectToHome() {

@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import AppCreate from "~/islands/AppCreate.tsx";
+import AppCreate from "~/islands/auth/AppCreate.tsx";
 
 interface Data {
   domain: string;

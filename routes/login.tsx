@@ -1,6 +1,8 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import UserLogin from "~/islands/UserLogin.tsx";
+import { match, P } from "ts-pattern";
+import UserLogin from "~/islands/auth/UserLogin.tsx";
 import LoginForm from "~/components/LoginForm.tsx";
+import { isEmptyString } from "~/lib/utils.ts";
 
 interface Data {
   handle: string;
@@ -17,11 +19,10 @@ export const handler: Handlers<Data> = {
 const Login = ({ data }: PageProps<Data>) => {
   const { handle } = data;
 
-  if (handle === "") {
-    return <LoginForm />;
-  } else {
-    return <UserLogin handle={handle} />;
-  }
+  return match(isEmptyString(handle))
+    .with(true, () => <LoginForm />)
+    .with(false, () => <UserLogin handle={handle} />)
+    .exhaustive();
 };
 
 export default Login;

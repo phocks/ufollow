@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import AccessTokenCreate from "~/islands/AccessTokenCreate.tsx";
+import AccessTokenCreate from "~/islands/auth/AccessTokenCreate.tsx";
 import { buildAuthorizationUrl } from "~/lib/buildAuthorizationUrl.ts";
 
 interface Data {

@@ -9,11 +9,11 @@ import * as $auth from "./routes/auth.tsx";
 import * as $create_app from "./routes/create-app.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
-import * as $AccessTokenCreate from "./islands/AccessTokenCreate.tsx";
-import * as $AppCreate from "./islands/AppCreate.tsx";
-import * as $LoginLogout from "./islands/LoginLogout.tsx";
-import * as $UserCheck from "./islands/UserCheck.tsx";
-import * as $UserLogin from "./islands/UserLogin.tsx";
+import * as $Main from "./islands/Main.tsx";
+import * as $auth_AccessTokenCreate from "./islands/auth/AccessTokenCreate.tsx";
+import * as $auth_AppCreate from "./islands/auth/AppCreate.tsx";
+import * as $auth_UserCheck from "./islands/auth/UserCheck.tsx";
+import * as $auth_UserLogin from "./islands/auth/UserLogin.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -27,11 +27,11 @@ const manifest = {
     "./routes/login.tsx": $login,
   },
   islands: {
-    "./islands/AccessTokenCreate.tsx": $AccessTokenCreate,
-    "./islands/AppCreate.tsx": $AppCreate,
-    "./islands/LoginLogout.tsx": $LoginLogout,
-    "./islands/UserCheck.tsx": $UserCheck,
-    "./islands/UserLogin.tsx": $UserLogin,
+    "./islands/Main.tsx": $Main,
+    "./islands/auth/AccessTokenCreate.tsx": $auth_AccessTokenCreate,
+    "./islands/auth/AppCreate.tsx": $auth_AppCreate,
+    "./islands/auth/UserCheck.tsx": $auth_UserCheck,
+    "./islands/auth/UserLogin.tsx": $auth_UserLogin,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

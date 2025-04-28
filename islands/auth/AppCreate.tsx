@@ -1,6 +1,6 @@
 import { untracked, useSignalEffect } from "@preact/signals";
 import { registerApplication } from "~/lib/registerApplication.ts";
-import applicationFromLocalStorage from "../lib/localStorage/applicationFromLocalStorage.ts";
+import applicationFromLocalStorage from "~/lib/localStorage/applicationFromLocalStorage.ts";
 import { Effect } from "effect";
 
 function redirectToHome() {
@@ -43,7 +43,6 @@ interface AppCreateProps {
 }
 
 const AppCreate = ({ domain }: AppCreateProps) => {
-  console.log(domain);
   useSignalEffect(() => untracked(() => init(domain)));
   return <div class="app-create"></div>;
 };

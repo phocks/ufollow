@@ -47,6 +47,7 @@ const init = () => {
 };
 
 const UserCheck = () => {
+  console.log("UserCheck component...");
   useSignalEffect(() => untracked(() => init()));
   return <div class="user-check"></div>;
 };
