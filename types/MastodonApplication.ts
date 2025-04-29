@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const ApplicationSchema = z.object({
+export const MastodonApplicationSchema = z.object({
   id: z.string(),
   name: z.string(),
   website: z.string(),
@@ -13,4 +13,4 @@ export const ApplicationSchema = z.object({
   client_secret_expires_at: z.number(),
 });
 
-export type Application = z.infer<typeof ApplicationSchema>;
+export type MastodonApplication = z.infer<typeof MastodonApplicationSchema>;

@@ -1,10 +1,10 @@
 import { Effect } from "effect";
 import { REDIRECT_URI } from "~/lib/constants.ts";
-import type { Application } from "~/types/Application.ts";
+import type { MastodonApplication } from "~/types/MastodonApplication.ts";
 
 export const registerApplication = (
   domain: string,
-): Effect.Effect<Application, Error> => {
+): Effect.Effect<MastodonApplication, Error> => {
   return Effect.tryPromise({
     try: async () => {
       // Create URL from the domain string
@@ -27,7 +27,7 @@ export const registerApplication = (
         throw new Error(`HTTP error: ${response.status}`);
       }
 
-      return await response.json() as Application;
+      return await response.json() as MastodonApplication;
     },
     catch: (error) =>
       new Error(error instanceof Error ? error.message : String(error)),
