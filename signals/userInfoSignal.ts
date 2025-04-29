@@ -1,4 +1,4 @@
 import { signal } from "@preact/signals";
-import { UserData } from "~/types/User.ts";
+import { User } from "~/types/User.ts";
 
-export const userInfoSignal = signal<UserData | null>(null);
+export const userInfoSignal = signal<User | null>(null);

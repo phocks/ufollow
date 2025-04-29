@@ -15,5 +15,5 @@ export const UserSchemaZod = z.object({
   formattedUser: z.string(),
 });
 
-export type UserDataValibot = v.InferInput<typeof UserSchema>;
-export type UserData = z.infer<typeof UserSchemaZod>;
+export type UserValibot = v.InferInput<typeof UserSchema>;
+export type User = z.infer<typeof UserSchemaZod>;
