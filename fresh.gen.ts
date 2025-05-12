@@ -5,10 +5,10 @@
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
-import * as $auth from "./routes/auth.tsx";
-import * as $create_app from "./routes/create-app.tsx";
+import * as $auth_index from "./routes/auth/index.tsx";
+import * as $create_app_index from "./routes/create-app/index.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $login from "./routes/login.tsx";
+import * as $login_index from "./routes/login/index.tsx";
 import * as $Main from "./islands/Main.tsx";
 import * as $auth_AccessTokenCreate from "./islands/auth/AccessTokenCreate.tsx";
 import * as $auth_AppCreate from "./islands/auth/AppCreate.tsx";
@@ -21,10 +21,10 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
-    "./routes/auth.tsx": $auth,
-    "./routes/create-app.tsx": $create_app,
+    "./routes/auth/index.tsx": $auth_index,
+    "./routes/create-app/index.tsx": $create_app_index,
     "./routes/index.tsx": $index,
-    "./routes/login.tsx": $login,
+    "./routes/login/index.tsx": $login_index,
   },
   islands: {
     "./islands/Main.tsx": $Main,

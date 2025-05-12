@@ -1,4 +1,3 @@
-import { useSignal } from "@preact/signals";
 import UserCheck from "~/islands/auth/UserCheck.tsx";
 import Main from "~/islands/Main.tsx";
 
