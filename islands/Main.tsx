@@ -55,6 +55,8 @@ const Main = () => {
         ...usersNotFollowedBy.value,
         ...notFollowingDetails,
       ];
+
+      console.log(usersNotFollowedBy.value);
     }
 
     isLoading.value = false;
@@ -68,23 +70,17 @@ const Main = () => {
 
   return (
     <div>
-      {isLoading.value
-        ? <p>Loading users who don't follow you back...</p>
-        : (
-          <div>
-            <h2>
-              Users who don't follow you back ({usersNotFollowedBy.value
-                .length})
-            </h2>
-            <ul>
-              {usersNotFollowedBy.value.map((item) => (
-                <li key={item.relationship.id}>
-                  {item.account?.display_name || item.account?.username}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+      <h2>
+        Users who don't follow you back ({usersNotFollowedBy.value
+          .length}) {isLoading.value ? <span>Loading...</span> : <span>All done!</span>}
+      </h2>
+      <ul>
+        {usersNotFollowedBy.value.map((item) => (
+          <li key={item.relationship.id}>
+            {item.account?.display_name || item.account?.username}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
