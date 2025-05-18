@@ -70,7 +70,6 @@ const Main = () => {
 
       for await (const batch of generateUsersNotFollowedByBatch(mastoClient, userAccount.id)) {
         addUsersNotFollowedBy(batch);
-        console.log("Fetched a batch of users:", batch.length);
       }
     } catch (error) {
       console.error("Error fetching following data:", error);
@@ -80,8 +79,6 @@ const Main = () => {
   }
 
   useSignalEffect(() => {
-    // This effect will run when user, app, or token signals change,
-    // and processFollowingData has its own guards.
     processFollowingData();
   });
 
@@ -95,7 +92,13 @@ const Main = () => {
       <ul>
         {usersNotFollowedBySignal.value.map((item) => (
           <li key={item.relationship.id}>
-            {item.account?.displayName || item.account?.username}
+            <a
+              href={`https://${user.value.domain}/@${item.account.acct}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.account.displayName}
+            </a>
           </li>
         ))}
       </ul>
