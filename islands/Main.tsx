@@ -9,7 +9,8 @@ import {
 } from "~/signals/usersNotFollowedBySignal.ts";
 import { generateUsersNotFollowedByBatch } from "~/lib/generateUsersNotFollowedByBatch.ts";
 
-import { useSignal, useSignalEffect } from "@preact/signals";
+import { useSignal } from "@preact/signals";
+import { useEffect } from "preact/hooks";
 import { createRestAPIClient, mastodon } from "masto";
 
 const Main = () => {
@@ -49,9 +50,9 @@ const Main = () => {
     }
   }
 
-  useSignalEffect(() => {
+  useEffect(() => {
     processFollowingData();
-  });
+  }, []);
 
   return (
     <div>
