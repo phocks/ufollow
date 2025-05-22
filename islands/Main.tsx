@@ -17,15 +17,7 @@ const Main = () => {
   const isLoading = useSignal<boolean>(false);
 
   async function processFollowingData() {
-    if (!user.value || !app.value || !token.value) {
-      clearUsersNotFollowedBy();
-      isLoading.value = false;
-      return;
-    }
-
     isLoading.value = true;
-    clearUsersNotFollowedBy();
-
     try {
       const url = new URL(`https://${user.value.domain}`);
       const mastoClient = createRestAPIClient({
@@ -53,6 +45,12 @@ const Main = () => {
   useEffect(() => {
     processFollowingData();
   }, []);
+
+  if (!user.value || !app.value || !token.value) {
+    isLoading.value = false;
+    console.log(user.value, app.value, token.value);
+    return <div></div>;
+  }
 
   return (
     <div>
