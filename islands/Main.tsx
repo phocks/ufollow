@@ -46,9 +46,9 @@ const Main = () => {
     processFollowingData();
   }, []);
 
-  if (!user.value || !app.value || !token.value) {
-    isLoading.value = false;
-    console.log(user.value, app.value, token.value);
+  if (
+    !user.value.username || !app.value.client_id || !token.value.access_token
+  ) {
     return <div></div>;
   }
 
