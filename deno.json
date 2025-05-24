@@ -19,13 +19,10 @@
   "exclude": ["**/_fresh/*"],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
-    "@emotion/css": "npm:@emotion/css@^11.13.5",
     "@std/async": "jsr:@std/async@^1.0.12",
     "@std/http": "jsr:@std/http@^1.0.14",
     "@tailwindcss/forms": "npm:@tailwindcss/forms@^0.5.10",
     "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
-    "megalodon": "npm:megalodon@^10.1.1",
-    "style-components": "npm:style-components@^0.1.0",
     "valibot": "jsr:@valibot/valibot@^1.0.0",
     "@yuzu-ui/yuzu-ui": "jsr:@yuzu-ui/yuzu-ui@^0.1.0",
     "await-to-js": "npm:await-to-js@^3.0.0",
