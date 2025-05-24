@@ -102,11 +102,6 @@ export const getAccessToken = async (
   return token;
 };
 
-
-// curl \
-// 	-H 'Authorization: Bearer <access_token>' \
-// 	https://mastodon.example/api/v1/apps/verify_credentials
-
 export const verifyCredentials = async (baseUrl: string, token: string) => {
   const application = await fetch(baseUrl + "/api/v1/apps/verify_credentials", {
     headers: {

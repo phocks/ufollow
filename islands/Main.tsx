@@ -43,7 +43,11 @@ const Main = () => {
   }
 
   useEffect(() => {
-    processFollowingData();
+    if (
+      user.value.username && app.value.client_id && token.value.access_token
+    ) {
+      processFollowingData();
+    }
   }, []);
 
   if (
