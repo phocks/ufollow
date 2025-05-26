@@ -6,14 +6,14 @@ const LoginForm = () => {
       </p>
 
       <div class="my-4">
-        <form class="flex gap-2">
+        <form class="flex flex-col sm:flex-row gap-2">
           <input
             name="handle"
             type="text"
             placeholder="@user@domain.com"
-            class="text-2x"
+            class="w-full sm:flex-1"
           />
-          <button type="submit" class="btn">Continue</button>
+          <button type="submit" class="btn w-fit sm:w-auto">Continue</button>
         </form>
       </div>
     </>

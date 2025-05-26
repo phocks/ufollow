@@ -13,23 +13,42 @@ import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import { createRestAPIClient, mastodon } from "masto";
 
+function isAuthed() {
+  return (
+    user.value.username && app.value.client_id && token.value.access_token
+  );
+}
+
 const Main = () => {
   const isLoading = useSignal<boolean>(false);
+  const mastoClient = useSignal<any>(null);
 
-  async function processFollowingData() {
-    isLoading.value = true;
-    try {
+  function initializeMastoClient() {
+    if (isAuthed() && !mastoClient.value) {
       const url = new URL(`https://${user.value.domain}`);
-      const mastoClient = createRestAPIClient({
+      mastoClient.value = createRestAPIClient({
         url: url.origin,
         accessToken: token.value?.access_token,
       });
+    }
+  }
 
-      const userAccount = await mastoClient.v1.accounts.verifyCredentials();
+  async function processFollowingData() {
+    isLoading.value = true;
+
+    try {
+      await initializeMastoClient();
+
+      if (!mastoClient.value) {
+        throw new Error("Failed to initialize Mastodon client");
+      }
+
+      const userAccount = await mastoClient.value.v1.accounts
+        .verifyCredentials();
 
       for await (
         const batch of generateUsersNotFollowedByBatch(
-          mastoClient,
+          mastoClient.value,
           userAccount.id,
         )
       ) {
@@ -43,25 +62,93 @@ const Main = () => {
   }
 
   useEffect(() => {
-    if (
-      user.value.username && app.value.client_id && token.value.access_token
-    ) {
+    if (isAuthed()) {
       processFollowingData();
     }
   }, []);
 
-  if (
-    !user.value.username || !app.value.client_id || !token.value.access_token
-  ) {
+  if (!isAuthed()) {
     return <div></div>;
+  }
+
+  const firstUser = usersNotFollowedBySignal.value.length > 0
+    ? usersNotFollowedBySignal.value[0]
+    : null;
+
+  async function handleUnfollow() {
+    if (!mastoClient.value || !firstUser) return;
+
+    try {
+      await mastoClient.value.v1.accounts.$select(firstUser.account.id)
+        .unfollow();
+
+      usersNotFollowedBySignal.value = usersNotFollowedBySignal.value
+        .filter((user: NotFollowedByItem) =>
+          user.account.id !== firstUser.account.id
+        );
+
+      console.log("Unfollowed successfully");
+    } catch (error) {
+      console.error("Error unfollowing user:", error);
+    }
+  }
+
+  function handleSkip() {
+    if (usersNotFollowedBySignal.value.length > 0) {
+      usersNotFollowedBySignal.value = usersNotFollowedBySignal.value.slice(1);
+    }
   }
 
   return (
     <div class="space-y-4">
       <p>
-        Users who don't follow you back ({usersNotFollowedBySignal.value
-          .length}){" "}
-        {isLoading.value ? <span>Loading...</span> : <span>All done!</span>}
+        {isLoading.value ? <span>Loading</span> : <span>Loaded</span>}{" "}
+        ({usersNotFollowedBySignal.value.length}) users not following you.
+      </p>
+
+      <p>
+        <div>
+          {firstUser && (
+            <>
+              <div class="flex items-center space-x-2">
+                <img
+                  src={firstUser.account.avatar}
+                  alt="Avatar"
+                  class="w-16 h-16 rounded-lg"
+                />
+                <div>
+                  <div>
+                    <a href={firstUser.account.url} target="_blank" rel="noopener noreferrer">
+                      {firstUser.account.displayName}
+                    </a>
+                  </div>
+
+                  <div class="text-sm text-gray-500">
+                    {firstUser.account.acct}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </p>
+
+      <p class="flex space-x-2">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick={handleUnfollow}
+        >
+          Unfollow
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick={handleSkip}
+        >
+          Skip
+        </button>
       </p>
     </div>
   );

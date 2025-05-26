@@ -10,6 +10,7 @@ import * as $create_app_index from "./routes/create-app/index.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $login_index from "./routes/login/index.tsx";
 import * as $Main from "./islands/Main.tsx";
+import * as $User from "./islands/User.tsx";
 import * as $auth_AccessTokenCreate from "./islands/auth/AccessTokenCreate.tsx";
 import * as $auth_AppCreate from "./islands/auth/AppCreate.tsx";
 import * as $auth_UserCheck from "./islands/auth/UserCheck.tsx";
@@ -28,6 +29,7 @@ const manifest = {
   },
   islands: {
     "./islands/Main.tsx": $Main,
+    "./islands/User.tsx": $User,
     "./islands/auth/AccessTokenCreate.tsx": $auth_AccessTokenCreate,
     "./islands/auth/AppCreate.tsx": $auth_AppCreate,
     "./islands/auth/UserCheck.tsx": $auth_UserCheck,
