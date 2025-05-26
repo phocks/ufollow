@@ -57,12 +57,12 @@ const Main = () => {
   }
 
   return (
-    <div>
-      <h2>
+    <div class="space-y-4">
+      <p>
         Users who don't follow you back ({usersNotFollowedBySignal.value
           .length}){" "}
         {isLoading.value ? <span>Loading...</span> : <span>All done!</span>}
-      </h2>
+      </p>
     </div>
   );
 };
