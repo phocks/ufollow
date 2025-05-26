@@ -14,12 +14,12 @@ export default function App({ Component }: PageProps) {
           crossorigin="true"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Jacquard+12&display=swap"
           rel="stylesheet"
         />
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body class="m-6">
+      <body>
         <Component />
       </body>
     </html>

@@ -11,7 +11,7 @@ const LoginForm = () => {
             name="handle"
             type="text"
             placeholder="@user@domain.com"
-            class=""
+            class="text-2x"
           />
           <button type="submit" class="btn">Continue</button>
         </form>

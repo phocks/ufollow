@@ -36,15 +36,20 @@ const Authenticate = ({ data }: PageProps<Data>) => {
           </a>
         </div>
         <div class="my-4">
-          <form class="flex gap-2">
+          <form class="flex flex-col sm:flex-row gap-2">
             <input
               name="auth-code"
               type="text"
               placeholder="<authorization_code>"
-              class=""
+              class="w-full sm:w-auto flex-grow"
             />
             <input type="hidden" name="domain" value={domain} />
-            <button type="submit" class="btn">Auth</button>
+            <button
+              type="submit"
+              class="btn w-fit"
+            >
+              Auth
+            </button>
           </form>
         </div>
       </div>
