@@ -18,6 +18,7 @@ export default function App({ Component }: PageProps) {
           rel="stylesheet"
         />
         <link rel="stylesheet" href="/styles.css" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body>
         <Component />
