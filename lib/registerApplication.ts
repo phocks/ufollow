@@ -18,7 +18,7 @@ export const registerApplication = (
         body: JSON.stringify({
           client_name: "Ufollow for Mastodon",
           redirect_uris: REDIRECT_URI,
-          scopes: "read write push",
+          scopes: "read write",
           website: "https://ufollow.deno.dev",
         }),
       });
