@@ -2,9 +2,9 @@ import { REDIRECT_URI } from "./constants.ts";
 
 /**
  * Generates the authorization URL for the OAuth2 flow.
- * 
- * @param domain 
- * @param clientId 
+ *
+ * @param domain
+ * @param clientId
  * @returns A string representing the authorization URL for the OAuth2 flow.
  */
 export const buildAuthorizationUrl = (
@@ -13,7 +13,7 @@ export const buildAuthorizationUrl = (
 ): string => {
   const params = new URLSearchParams({
     client_id: clientId,
-    scope: "read write push",
+    scope: "read:follows write:follows",
     redirect_uri: REDIRECT_URI,
     response_type: "code",
   });
