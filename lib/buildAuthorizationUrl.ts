@@ -13,7 +13,7 @@ export const buildAuthorizationUrl = (
 ): string => {
   const params = new URLSearchParams({
     client_id: clientId,
-    scopes: "read:follows write",
+    scope: "read write",
     redirect_uri: REDIRECT_URI,
     response_type: "code",
   });
